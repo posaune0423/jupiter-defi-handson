@@ -24,10 +24,12 @@ footer: 'Jupiter Agent Handson'
 <div class="min-w-0 pl-4 pr-2 text-left text-2xl leading-relaxed tracking-tight">
 
 - Name: **asuma**
-- Role: **Co-Founder / CTO @DaikoAI**
-- X: [@0xasuma_jp]()
-- Github: [@posaune0423]()
-- Linkedin: [@posaune0423]()
+- Role: **Co-Founder / CTO [@DaikoAI](https://daiko.ai)**
+- Links:
+  - [posaune0423.com](https://posaune0423.com)
+  - X: [@0xasuma_jp](https://x.com/0xasuma_jp)
+  - Github: [@posaune0423](https://github.com/posaune0423)
+  - Linkedin: [@posaune0423](https://linkedin.com/in/posaune0423)
 
 </div>
 
@@ -42,6 +44,5 @@ footer: 'Jupiter Agent Handson'
 ### まとめ
 
 ---
-
 
 ### 参考文献
