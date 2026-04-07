@@ -1,0 +1,36 @@
+name: Verify Marp build
+
+on:
+  pull_request:
+
+concurrency:
+  group: marp-verify-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Convert Markdown to HTML and PDF
+        uses: KoharaKazuya/marp-cli-action@v4
+        with:
+          config-file: ./.marprc-ci.yml
+          generate-html: true
+          generate-pdf: true
+
+      # Same asset layout as deploy (Marp HTML expects ./assets/ next to the HTML files).
+      - name: Mirror assets into output
+        run: |
+          sudo chown -R "$(whoami):$(whoami)" output
+          mkdir -p output/assets
+          cp -R assets/. output/assets/
+
+      - name: Assert Marp outputs exist
+        run: |
+          test -f output/SLIDE.html
+          test -f output/SLIDE.pdf
+          test -f output/assets/bg.png
