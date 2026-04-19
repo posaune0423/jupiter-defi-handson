@@ -1,6 +1,7 @@
 // Please put `.vscode/settings.json` on your workspace
 {
-  "markdown.marp.themes": [
-    "./theme/jupiter.css"
-  ]
+  "markdown.marp.themes": ["./theme/jupiter.css"],
+  "prettier.enable": false,
+  "eslint.enable": false,
+  "deno.enable": true
 }
