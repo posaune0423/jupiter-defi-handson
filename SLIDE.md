@@ -1,6 +1,7 @@
 ---
 marp: true
 theme: jupiter
+paginate: true
 style: @import url('https://unpkg.com/tailwindcss@^2/dist/utilities.min.css');
 backgroundImage: url(./assets/bg.png)
 footer: 'Clawathon Tokyo Edition  |  2026'
@@ -20,9 +21,33 @@ footer: 'Clawathon Tokyo Edition  |  2026'
     <p class="text-2xl font-semibold mb-3">Clawathon Tokyo Edition 2026</p>
     <p class="text-xl text-gray-300">Presented by SuzuPay × Jupiter</p>
   </div>
-  <div class="text-right">
-    <p class="text-lg text-gray-300">5 min intro + demos + hands-on + gotchas</p>
-  </div>
+
+</div>
+
+---
+
+### 自己紹介
+
+<div class="grid grid-cols-2 gap-x-14 gap-y-6 items-center w-full max-w-full mx-auto mt-8 mb-4 px-6 box-border">
+
+<div class="flex justify-center items-center min-w-0 pr-2">
+
+<img src="assets/profile-picture.png" alt="asuma" class="block w-64 h-64 max-w-full flex-shrink-0 object-cover rounded-full border-0 shadow-none outline-none" />
+
+</div>
+
+<div class="min-w-0 pl-4 pr-2 text-left text-2xl leading-relaxed tracking-tight">
+
+- Name: **asuma**
+- Role: **Co-Founder / CTO [@DaikoAI](https://daiko.ai)**
+- Links:
+  - [posaune0423.com](https://posaune0423.com)
+  - 𝕏: [@0xasuma_jp](https://x.com/0xasuma_jp)
+  - Github: [@posaune0423](https://github.com/posaune0423)
+  - Linkedin: [@posaune0423](https://linkedin.com/in/posaune0423)
+
+</div>
+
 </div>
 
 ---
@@ -36,17 +61,17 @@ footer: 'Clawathon Tokyo Edition  |  2026'
     <tr>
       <th>Part</th>
       <th>Time</th>
-      <th>Topic</th>
-      <th>What you'll get</th>
+      <th>内容</th>
+      <th>得られるもの</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>①</td><td>5分</td><td>オープニング</td><td>ゴール・アジェンダ / Jupiter エコシステム概要</td></tr>
-    <tr><td>②</td><td>10分</td><td>【デモ先行】AI × DeFi の世界</td><td>AI エージェントによる自律トレード実演 / Why Jupiter?</td></tr>
-    <tr><td>③</td><td>10分</td><td>DeFi 課題解決 & Agent Skills アーキテクチャ</td><td>複雑な UX を AI が解決 / <code>SKILL.md</code> の仕組み</td></tr>
-    <tr><td>④</td><td>20分</td><td>【ハンズオン】最小実装</td><td>Ultra Swap / DCA 自動化 / Lend 組み込み</td></tr>
-    <tr><td>⑤</td><td>10分</td><td>エラーハンドリング & Gotchas</td><td>TTL・冪等性・Rate Limit・リトライ戦略</td></tr>
-    <tr><td>⑥</td><td>5分</td><td>Q&A・クロージング</td><td>質疑応答 / SuzuPay & Jupiter からの案内</td></tr>
+    <tr><td>①</td><td>5 min</td><td>Jupiter エコシステム概要</td><td>API の全体像と開発者にとっての立ち位置</td></tr>
+    <tr><td>②</td><td>10 min</td><td>デモ & Why Jupiter?</td><td>自然言語→スワップ実演 / ビルダー視点の強み</td></tr>
+    <tr><td>③</td><td>10 min</td><td>Agent Skills アーキテクチャ</td><td><code>SKILL.md</code> の仕組み / AI が DeFi の UX を解決する流れ</td></tr>
+    <tr><td>④</td><td>20 min</td><td>ハンズオン: 最小実装</td><td>Ultra Swap / DCA 自動化 / Lend 組み込み</td></tr>
+    <tr><td>⑤</td><td>10 min</td><td>エラーハンドリング & 注意点</td><td>TTL・冪等性・Rate Limit・リトライ戦略</td></tr>
+    <tr><td>⑥</td><td>5 min</td><td>Q&A・クロージング</td><td>質疑応答 / SuzuPay & Jupiter からの案内</td></tr>
   </tbody>
 </table>
 
@@ -56,7 +81,11 @@ footer: 'Clawathon Tokyo Edition  |  2026'
 
 ## Jupiter エコシステム: 開発者にとっての立ち位置
 
-<img src="./assets/jupiter-ecosystem-map.svg" alt="Jupiter ecosystem map" class="diagram" style="width: 780px;" />
+---
+
+<!-- _backgroundImage: url(./assets/jup-ecosystem.png) -->
+<!-- _backgroundSize: cover -->
+<!-- _backgroundPosition: center 80% -->
 
 ---
 
@@ -65,32 +94,48 @@ footer: 'Clawathon Tokyo Edition  |  2026'
 
 # SECTION 1
 
-## 【デモ先行】
-
-### Jupiter Agent Skills が実現する AI × DeFi の世界
+## デモで体感する AI × DeFi の世界
 
 <p class="mt-10 text-2xl text-gray-300">10 min</p>
 
 ---
 
-<!-- _class: flow-slide -->
 <!-- header: Section 1 -->
 
-## 【実演デモ】自然言語から Jupiter API が動く世界
+## 自然言語から Jupiter API が動く世界
 
-<img src="./assets/jupiter-natural-language-flow.svg" alt="Natural language to Jupiter API flow" class="diagram" style="width: 980px;" />
-
----
-
-<!-- header: Section 1 -->
-
-## デモ
-
-<div class="h-full flex items-center justify-center pt-12">
-  <div class="rounded-3xl border border-dashed border-white/30 bg-black/15 px-14 py-16 text-center max-w-4xl">
-    <p class="text-sm uppercase tracking-[0.3em] text-gray-400 mb-4">Live Demo Placeholder</p>
-    <p class="text-4xl font-semibold mb-4">自然言語から Jupiter API までの実演</p>
-    <p class="text-2xl text-gray-300">このスライドは、当日デモまたは画面共有を差し込むための間スライドとして維持します。</p>
+<div class="flow-steps">
+  <div class="flow-step">
+    <div class="step-num">1. User Intent</div>
+    <div class="step-title">ユーザー指示</div>
+    <div class="step-detail">
+      「SOL を 1000 USDC に換えて」<br/>
+      「価格条件つきで実行」
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">2. AI Agent</div>
+    <div class="step-title">Intent 解釈</div>
+    <div class="step-detail">
+      SKILL.md を参照して<br/>
+      パラメータ抽出
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">3. Jupiter API</div>
+    <div class="step-title">API 呼び出し</div>
+    <div class="step-detail">
+      <code>GET /order</code><br/>
+      <code>POST /execute</code>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">4. Transaction</div>
+    <div class="step-title">署名・送信</div>
+    <div class="step-detail">
+      VersionedTx<br/>
+      Solana RPC
+    </div>
   </div>
 </div>
 
@@ -102,28 +147,25 @@ footer: 'Clawathon Tokyo Edition  |  2026'
 
 <div class="grid grid-cols-3 gap-4 mt-6">
   <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-    <p class="text-5xl font-semibold text-lime-200 mb-4">01</p>
-    <p class="text-2xl font-semibold mb-3">流動性の集約</p>
+    <p class="mb-3"><span class="why-num">01</span><span class="why-title">流動性の集約</span></p>
     <ul class="text-lg">
       <li>Metis / JupiterZ / DFlow / OKX の 4 ルーターが競合</li>
       <li>1 API コールで最良レートを自動選択</li>
-      <li>Split `order` / `execute` でリアルタイム流動性を取得</li>
+      <li>Split <code>order</code> / <code>execute</code> でリアルタイム流動性を取得</li>
     </ul>
   </div>
   <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-    <p class="text-5xl font-semibold text-lime-200 mb-4">02</p>
-    <p class="text-2xl font-semibold mb-3">API の圧倒的な使いやすさ</p>
+    <p class="mb-3"><span class="why-num">02</span><span class="why-title">シンプルな API 設計</span></p>
     <ul class="text-lg">
-      <li>RESTful 設計: `GET /order` → `POST /execute` の 2 ステップ</li>
+      <li>RESTful 設計: <code>GET /order</code> → <code>POST /execute</code> の 2 ステップ</li>
       <li>条件次第でガスレス対応</li>
       <li>TypeScript / Python SDK で即日統合可能</li>
     </ul>
   </div>
   <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-    <p class="text-5xl font-semibold text-lime-200 mb-4">03</p>
-    <p class="text-2xl font-semibold mb-3">Agent Skills との相性</p>
+    <p class="mb-3"><span class="why-num">03</span><span class="why-title">Agent Skills との相性</span></p>
     <ul class="text-lg">
-      <li>`SKILL.md` で API 仕様を AI 向けにパッケージング</li>
+      <li><code>SKILL.md</code> で API 仕様を AI 向けにパッケージング</li>
       <li>自然言語の intent を構造化パラメータへ変換</li>
       <li>ハッカソンで数時間以内に動くものを作りやすい</li>
     </ul>
@@ -146,9 +188,41 @@ footer: 'Clawathon Tokyo Edition  |  2026'
 <!-- _class: architecture-slide -->
 <!-- header: Section 2 -->
 
-## Agent Skills の仕組み: `SKILL.md` が AI と API をつなぐ
+## Agent Skills の仕組み: SKILL.md が AI と API をつなぐ
 
-<img src="./assets/agent-skills-architecture.svg" alt="Agent skills architecture" class="diagram" />
+<div class="arch-layers">
+  <div class="arch-layer">
+    <div>
+      <div class="layer-label">Layer 1</div>
+      <div class="layer-name">ユーザー / AI Agent</div>
+    </div>
+    <div class="layer-desc">自然言語で指示・intent を発行</div>
+  </div>
+  <div class="arch-arrow-down">▼</div>
+  <div class="arch-layer">
+    <div>
+      <div class="layer-label">Layer 2</div>
+      <div class="layer-name">SKILL.md</div>
+    </div>
+    <div class="layer-desc">API 仕様 / 認証 / エラーパターン / 注意点 / コード例を AI 向けに束ねる</div>
+  </div>
+  <div class="arch-arrow-down">▼</div>
+  <div class="arch-layer">
+    <div>
+      <div class="layer-label">Layer 3</div>
+      <div class="layer-name">Jupiter API Layer</div>
+    </div>
+    <div class="layer-desc"><code>GET /order</code> → <code>POST /execute</code> / 署名・送信</div>
+  </div>
+  <div class="arch-arrow-down">▼</div>
+  <div class="arch-layer">
+    <div>
+      <div class="layer-label">Layer 4</div>
+      <div class="layer-name">Solana Blockchain</div>
+    </div>
+    <div class="layer-desc">VersionedTransaction を RPC 経由でオンチェーン確定</div>
+  </div>
+</div>
 
 <div class="card-grid-3">
   <div class="glass-card">
@@ -159,7 +233,7 @@ footer: 'Clawathon Tokyo Edition  |  2026'
   <div class="glass-card">
     <div class="kicker">Failure Handling</div>
     <h4>落とし穴の先回り</h4>
-    <p>エラーコード対応表 / Gotchas（罠）</p>
+    <p>エラーコード対応表 / よくある落とし穴</p>
   </div>
   <div class="glass-card">
     <div class="kicker">Execution</div>
@@ -277,7 +351,7 @@ POST /lend/v1/borrow
 
 # SECTION 4
 
-## ハッカソンを勝ち抜くためのエラーハンドリング & Gotchas
+## エラーハンドリング & よくある落とし穴
 
 <p class="mt-10 text-2xl text-gray-300">10 min — 陥りやすい罠とリトライ戦略</p>
 
@@ -286,11 +360,11 @@ POST /lend/v1/borrow
 <!-- _class: gotchas-slide -->
 <!-- header: Section 4 -->
 
-## Gotchas（陥りやすい罠）& エラーコード対応表
+## よくある落とし穴 & エラーコード対応表
 
 <div class="card-grid-2">
   <div class="glass-card">
-    <h4><span class="emoji-label"><span>⚠</span><span>Gotchas（罠リスト）</span></span></h4>
+    <h4><span class="emoji-label"><span>⚠</span><span>注意すべきポイント</span></span></h4>
     <ul>
       <li>TTL: 署名済み Tx は約 2 分で失効。切れたら再クォート。</li>
       <li>冪等性: 同じ <code>requestId</code> + signedTx なら 2 分以内は再送可。</li>
