@@ -301,30 +301,6 @@ deno task dca:execute
 
 ---
 
-
-## cronでposition check & report生成
-
-Prompt:
-
-```text
-現在の wallet balance と demo default を Markdown report にして。
-cron で定期実行できる形にして。
-```
-
-Command:
-
-```bash
-deno task report
-```
-
-Cron example:
-
-```cron
-0 * * * * cd /path/to/openclaw && deno task report >> reports/jupiter.md
-```
-
----
-
 <!-- header: "" -->
 <!-- _class: section-divider -->
 
@@ -360,8 +336,105 @@ Cron example:
 
 ---
 
-## Error Handling
+## Error Handling: よくある罠
 
+<style scoped>
+table { font-size: 0.52em; line-height: 1.3; }
+td, th { padding: 0.3rem 0.45rem; }
+</style>
+
+<table>
+  <thead>
+    <tr><th>罠</th><th>説明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>TTL（有効期限）</td><td>署名済みTxは約2分で失効 → 再クォート必須</td></tr>
+    <tr><td>冪等性</td><td>同じ <code>requestId</code> + <code>signedTx</code> で2分以内なら再送可</td></tr>
+    <tr><td>Rate Limit</td><td>50 req / 10s 基本。<code>Retry-After</code> ヘッダーを必ず確認</td></tr>
+    <tr><td>署名エラー(-1003)</td><td>全必要署名者が揃っているか確認</td></tr>
+    <tr><td>/build と /execute 混用</td><td>/build の Tx は自前RPC経由のみ。/execute に渡すと失敗</td></tr>
+    <tr><td>payer 指定時</td><td>ルートが Metis のみに限定（JupiterZ / DFlow 除外）</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Error Handling: エラーコード対応表
+
+<style scoped>
+table { font-size: 0.52em; line-height: 1.3; }
+td, th { padding: 0.3rem 0.45rem; }
+</style>
+
+<table>
+  <thead>
+    <tr><th>Code</th><th>分類</th><th>対処法</th><th>Retry</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>-1</code></td><td>オーダー失効</td><td>再クォート</td><td>✓</td></tr>
+    <tr><td><code>-1000</code></td><td>ランディング失敗</td><td>パラメータ調整して再試行</td><td>✓</td></tr>
+    <tr><td><code>-1001</code></td><td>不明エラー</td><td>指数バックオフで再試行</td><td>✓</td></tr>
+    <tr><td><code>-1003</code></td><td>署名不足</td><td>全署名者を確認</td><td>✗</td></tr>
+    <tr><td><code>-1004</code></td><td>Blockhash失効</td><td>再クォート（TTL切れ）</td><td>✓</td></tr>
+    <tr><td><code>-2003</code></td><td>クォート失効(RFQ)</td><td>再クォート</td><td>✓</td></tr>
+    <tr><td><code>429</code></td><td>Rate Limit超過</td><td><code>Retry-After</code> 後に再試行</td><td>✓</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Error Handling: リトライ戦略
+
+<style scoped>
+pre { font-size: 0.52em; }
+</style>
+
+```javascript
+async function withRetry(fn, max = 3) {
+  for (let i = 0; i < max; i++) {
+    try { return await fn(); }
+    catch (err) {
+      const retry = [-1, -1000, -1001,
+        -1004, -2003, 429].includes(err.code);
+      if (!retry || i === max - 1) throw err;
+      const ms = 2 ** i * 1000 + Math.random() * 1000;
+      await sleep(ms);
+      if ([-1, -1004, -2003].includes(err.code))
+        await reQuote();
+    }
+  }
+}
+```
+
+<div class="note-banner">
+
+**タイムアウト目安**: クォート 5s / 実行 30s / 合計オペレーション 60s
+
+</div>
+
+---
+
+## Error Handling: 本番投入チェックリスト
+
+<style scoped>
+table { font-size: 0.58em; line-height: 1.4; }
+td, th { padding: 0.35rem 0.5rem; }
+</style>
+
+<table>
+  <thead>
+    <tr><th></th><th>項目</th><th>内容</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>✓</td><td><strong>APIキー検証</strong></td><td>起動時に <code>x-api-key</code> 未設定なら即 Fail Fast</td></tr>
+    <tr><td>✓</td><td><strong>タイムアウト設定</strong></td><td>全 fetch 呼び出しに <code>AbortController</code> を追加</td></tr>
+    <tr><td>✓</td><td><strong>リトライ対象の分類</strong></td><td>retryable / non-retryable をエラーコードで判定</td></tr>
+    <tr><td>✓</td><td><strong>requestId のロギング</strong></td><td>全APIコールの requestId + status をログに記録</td></tr>
+    <tr><td>✓</td><td><strong>冪等性の確認</strong></td><td>再送前に同Txが確定していないかチェック</td></tr>
+    <tr><td>✓</td><td><strong>Slippage 上限設定</strong></td><td>アプリ設定から最大スリッページを強制</td></tr>
+    <tr><td>✓</td><td><strong>残高・アドレス検証</strong></td><td>実行前に mint アドレスと残高を確認</td></tr>
+  </tbody>
+</table>
 
 ---
 
