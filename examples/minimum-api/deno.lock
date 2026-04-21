@@ -4,9 +4,12 @@
     "jsr:@std/assert@^1.0.19": "1.0.19",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@t3-oss/env-core@*": "0.13.11",
-    "npm:@solana/kit@*": "6.8.0",
-    "npm:bs58@*": "6.0.0",
-    "npm:valibot@*": "1.3.1"
+    "npm:@solana/kit@^6.8.0": "6.8.0",
+    "npm:arktype@2.1.22": "2.1.22",
+    "npm:bs58@6": "6.0.0",
+    "npm:valibot@1.2.0": "1.2.0",
+    "npm:valibot@^1.3.1": "1.3.1",
+    "npm:zod@4.1.5": "4.1.5"
   },
   "jsr": {
     "@std/assert@1.0.19": {
@@ -19,10 +22,24 @@
       "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
     },
     "@t3-oss/env-core@0.13.11": {
-      "integrity": "05c80b3bd0c308ee9ec64558fc1d38645e3559defb397b422375194b629e3fd4"
+      "integrity": "05c80b3bd0c308ee9ec64558fc1d38645e3559defb397b422375194b629e3fd4",
+      "dependencies": [
+        "npm:arktype",
+        "npm:valibot@1.2.0",
+        "npm:zod"
+      ]
     }
   },
   "npm": {
+    "@ark/schema@0.49.0": {
+      "integrity": "sha512-GphZBLpW72iS0v4YkeUtV3YIno35Gimd7+ezbPO9GwEi9kzdUrPVjvf6aXSBAfHikaFc/9pqZOpv3pOXnC71tw==",
+      "dependencies": [
+        "@ark/util"
+      ]
+    },
+    "@ark/util@0.49.0": {
+      "integrity": "sha512-/BtnX7oCjNkxi2vi6y1399b+9xd1jnCrDYhZ61f0a+3X8x8DxlK52VgEEzyuC2UQMPACIfYrmHkhD3lGt2GaMA=="
+    },
     "@solana/accounts@6.8.0": {
       "integrity": "sha512-rXjFYVopaEw1H2PTBQbRjKr+0i4EFuBEhRT5E0dI4cMaabSb4KKypC2gaf47+6cjU3hMlM1AcsyIs72/MqAVBw==",
       "dependencies": [
@@ -424,6 +441,13 @@
         "@solana/transaction-messages"
       ]
     },
+    "arktype@2.1.22": {
+      "integrity": "sha512-xdzl6WcAhrdahvRRnXaNwsipCgHuNoLobRqhiP8RjnfL9Gp947abGlo68GAIyLtxbD+MLzNyH2YR4kEqioMmYQ==",
+      "dependencies": [
+        "@ark/schema",
+        "@ark/util"
+      ]
+    },
     "base-x@5.0.1": {
       "integrity": "sha512-M7uio8Zt++eg3jPj+rHMfCC+IuygQHHCOU+IYsVtik6FWjuYpVt/+MRKcgsAMHh8mMFAwnB+Bs+mTrFiXjMzKg=="
     },
@@ -442,19 +466,26 @@
     "undici-types@8.1.0": {
       "integrity": "sha512-JlLXdMmH4kxyn2JPtGK/cajzKY7F15OKYG8sO5HfkIC1AC09sLUeptGFKjnMWnprDQ2EwzYDO3kgzkK3aaoHCA=="
     },
+    "valibot@1.2.0": {
+      "integrity": "sha512-mm1rxUsmOxzrwnX5arGS+U4T25RdvpPjPN4yR0u9pUBov9+zGVtO84tif1eY4r6zWxVxu3KzIyknJy3rxfRZZg=="
+    },
     "valibot@1.3.1": {
       "integrity": "sha512-sfdRir/QFM0JaF22hqTroPc5xy4DimuGQVKFrzF1YfGwaS1nJot3Y8VqMdLO2Lg27fMzat2yD3pY5PbAYO39Gg=="
     },
     "ws@8.20.0": {
       "integrity": "sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA=="
+    },
+    "zod@4.1.5": {
+      "integrity": "sha512-rcUUZqlLJgBC33IT3PNMgsCq6TzLQEG/Ei/KTCU0PedSWRMAXoOUN+4t/0H+Q8bdnLPdqUYnvboJT0bn/229qg=="
     }
   },
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@^1.0.19",
       "jsr:@t3-oss/env-core@*",
-      "npm:@solana/kit@*",
-      "npm:valibot@*"
+      "npm:@solana/kit@^6.8.0",
+      "npm:bs58@6",
+      "npm:valibot@^1.3.1"
     ]
   }
 }

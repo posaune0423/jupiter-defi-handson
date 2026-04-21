@@ -1,4 +1,10 @@
 {
+  "lock": {
+    "path": "./deno.lock",
+    "frozen": true
+  },
+  "minimumDependencyAge": "P7D",
+  "allowScripts": false,
   "tasks": {
     "dev": "deno run --watch main.ts"
   },

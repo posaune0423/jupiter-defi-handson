@@ -9,7 +9,7 @@ import {
   assertIsTransactionWithinSizeLimit,
   type KeyPairSigner,
 } from "@solana/kit";
-import bs58 from "npm:bs58";
+import bs58 from "bs58";
 import { env } from "../env.ts";
 
 function base64ToBytes(b64: string): Uint8Array {
@@ -24,7 +24,7 @@ function bytesToBase64(bytes: Uint8Array): string {
 }
 
 /** Restore KeyPairSigner from base58-encoded PRIVATE_KEY env var. */
-export async function getWallet(): Promise<KeyPairSigner> {
+export function getWallet(): Promise<KeyPairSigner> {
   const secretKey = bs58.decode(env.PRIVATE_KEY);
   return createKeyPairSignerFromBytes(secretKey);
 }

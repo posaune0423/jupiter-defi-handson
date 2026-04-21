@@ -62,7 +62,7 @@ footer: '© Jupiter × SuzuPay  |  Clawathon Tokyo Edition'
     <tr><td>1</td><td>5 min</td><td>Jupiter API / Why Jupiter</td><td>Jupiterの強みを理解する</td></tr>
     <tr><td>2</td><td>5 min</td><td>Jupiter Agent Skills とは</td><td>Jupiter Agent Skills が開発をどう加速するか理解する</td></tr>
     <tr><td>3</td><td>20 min</td><td>デモ</td><td>Agent に実装を依頼する流れを見る</td></tr>
-    <tr><td>4</td><td>15 min</td><td>最小実装</td><td>Swap / Lend / Recurring の基本形を掴む</td></tr>
+    <tr><td>4</td><td>15 min</td><td>最小実装ハンズオン</td><td>Swap / Lend / Recurring の基本形を掴む</td></tr>
     <tr><td>5</td><td>10 min</td><td>実務的な注意点 / Advanced Topics</td><td>error handling と production hardening の要点を押さえる</td></tr>
     <tr><td>6</td><td>5 min</td><td>Q&A / Closing</td><td>質疑応答と参考資料の確認</td></tr>
   </tbody>
