@@ -33,5 +33,10 @@ export function bigintToJsonNumber(value: bigint): number {
       `Amount ${value.toString()} exceeds JavaScript safe integer range`,
     );
   }
+  if (value < BigInt(Number.MIN_SAFE_INTEGER)) {
+    throw new Error(
+      `Amount ${value.toString()} is below JavaScript safe integer range`,
+    );
+  }
   return Number(value);
 }

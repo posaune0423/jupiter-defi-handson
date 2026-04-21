@@ -147,7 +147,7 @@ footer: '© Jupiter × SuzuPay  |  Clawathon Tokyo Edition'
   - jupiter apiのintegrationに関する一般的なskill
 - `jupiter-lend`
   - lending機能のintegrateに特に特化したskill
-- `jupiter-wap-migration`
+- `jupiter-swap-migration`
   - 既存実装をJupiter Swap V2 APIにmigrateするためのskill
 - `jupiter-vrfd`
   - Jupiter Token Verificationを扱うためのskill

@@ -78,11 +78,13 @@ export async function runDcaDemo(
   lines.push(
     `[dca] Recurring transaction received: requestId=${order.requestId}`,
   );
-  lines.push(
-    "[dca] Dry run complete. Use deno task dca:execute to sign and execute a fresh order.",
-  );
 
-  if (!options.execute) return lines.join("\n");
+  if (!options.execute) {
+    lines.push(
+      "[dca] Dry run complete. Use deno task dca:execute to sign and execute a fresh order.",
+    );
+    return lines.join("\n");
+  }
 
   const signedTransaction = await signBase64Transaction(
     order.transaction,

@@ -10,7 +10,11 @@ export function parseArgs(args: string[]): ParsedArgs {
     }
 
     const withoutPrefix = arg.slice(2);
-    const [rawKey, inlineValue] = withoutPrefix.split("=", 2);
+    const eqIdx = withoutPrefix.indexOf("=");
+    const rawKey = eqIdx === -1 ? withoutPrefix : withoutPrefix.slice(0, eqIdx);
+    const inlineValue = eqIdx === -1
+      ? undefined
+      : withoutPrefix.slice(eqIdx + 1);
     if (!rawKey) throw new Error("Empty option name is not allowed");
 
     if (inlineValue !== undefined) {

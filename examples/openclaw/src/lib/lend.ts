@@ -44,11 +44,13 @@ export async function runLendDemo(
   if (!deposit.transaction) throw new Error("Lend API returned no transaction");
 
   lines.push("[lend] Unsigned deposit transaction received.");
-  lines.push(
-    "[lend] Dry run complete. Use deno task lend:execute to sign and submit a fresh transaction.",
-  );
 
-  if (!options.execute) return lines.join("\n");
+  if (!options.execute) {
+    lines.push(
+      "[lend] Dry run complete. Use deno task lend:execute to sign and submit a fresh transaction.",
+    );
+    return lines.join("\n");
+  }
 
   const signedBytes = await signBase64TransactionBytes(
     deposit.transaction,

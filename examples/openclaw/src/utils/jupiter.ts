@@ -101,6 +101,5 @@ export async function withRetry<T>(
       await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
-
-  throw new Error("Retry exhausted");
+  throw new Error("Retry exhausted: all attempts failed");
 }
