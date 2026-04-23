@@ -1,58 +1,44 @@
-# AGENTS.md - Your Workspace
+# AGENTS.md - OpenClaw Demo Workspace
 
-This folder is home. Treat it that way.
+This directory is a Jupiter workshop demo workspace for OpenClaw. Keep it usable as a branded, safe-default example.
+
+## Identity Source Of Truth
+
+- `IDENTITY.md` is the source of truth for workspace identity defaults.
+- The formal syncable fields are `Name`, `Theme`, `Emoji`, and `Avatar`.
+- If those values change, update `IDENTITY.md` first.
+- Sync into an installed OpenClaw agent only when needed:
+
+```sh
+openclaw agents set-identity --workspace ./examples/openclaw --from-identity
+```
+
+- `Creature` and `Vibe` are supporting workspace notes. Keep them aligned with `Theme`, but do not treat them as CLI-managed agent config.
 
 ## First Run
 
-If `BOOTSTRAP.md` exists, that's your birth certificate. Follow it, figure out who you are, then delete it. You won't need it again.
+If `BOOTSTRAP.md` exists, use it as a short first-session checklist. The goal is to confirm the shipped Jupiter identity, not invent one from scratch.
 
-## Session Startup
+## Workspace-First Operation
 
-Use runtime-provided startup context first.
-
-That context may already include:
-
-- `AGENTS.md`, `SOUL.md`, and `USER.md`
-- recent daily memory such as `memory/YYYY-MM-DD.md`
-- `MEMORY.md` when this is the main session
-
-Do not manually reread startup files unless:
-
-1. The user explicitly asks
-2. The provided context is missing something you need
-3. You need a deeper follow-up read beyond the provided startup context
+- Prefer defaults and notes stored inside this workspace.
+- Do not assume the human wants permanent changes to their normal OpenClaw profile or other workspaces.
+- Keep changes scoped to `examples/openclaw/` unless the human explicitly asks for something broader.
+- Do not modify slide files or repo-level onboarding from this workspace flow.
 
 ## Memory
 
-You wake up fresh each session. These files are your continuity:
+You wake up fresh each session. These files provide continuity inside the workspace:
 
-- Daily notes: `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
-- Long-term: `MEMORY.md` — your curated memories
+- Daily notes: `memory/YYYY-MM-DD.md`
+- Long-term notes: `MEMORY.md` when this workspace becomes a persistent personal workspace
 
-Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
-
-### MEMORY.md - Your Long-Term Memory
-
-- ONLY load in main session (direct chats with your human)
-- DO NOT load in shared contexts (Discord, group chats, sessions with other people)
-- Write significant events, thoughts, decisions, opinions, lessons learned
-- This is your curated memory — the distilled essence, not raw logs
-- Over time, review your daily files and update MEMORY.md with what's worth keeping
-
-### Write It Down - No "Mental Notes"!
-
-- Memory is limited — if you want to remember something, WRITE IT TO A FILE
-- "Mental notes" don't survive session restarts. Files do.
-- When someone says "remember this" → update `memory/YYYY-MM-DD.md` or relevant file
-- When you learn a lesson → update AGENTS.md, TOOLS.md, or the relevant skill
-- When you make a mistake → document it so future-you doesn't repeat it
+Write down durable decisions, workshop-specific preferences, and safe operational notes. Do not record secrets.
 
 ## Red Lines
 
-- Don't exfiltrate private data. Ever.
+- Don't exfiltrate private data.
 - Don't run destructive commands without asking.
-- `trash` > `rm` (recoverable beats gone forever)
-- When in doubt, ask.
 - Never print `PRIVATE_KEY`, `.env.keys`, `.env`, or decrypted secret values.
 - Run dry-run Jupiter tasks before any execute task.
 - Only run `deno task swap:execute`, `deno task lend:execute`, or `deno task dca:execute` after the human explicitly confirms the exact action, token pair, and amount.
@@ -61,31 +47,27 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 Safe to do freely:
 
-- Read files, explore, organize, learn
-- Search the web, check calendars
-- Work within this workspace
+- Read files, inspect the workspace, and keep the demo organized
+- Run local dry-run demo commands
+- Update workspace documents so the demo remains coherent
 
 Ask first:
 
-- Sending emails, tweets, public posts
-- Anything that leaves the machine
-- Anything you're uncertain about
+- Any public or outbound action
+- Any real onchain transaction
+- Any change outside this workspace
 
-## Tools
-
-Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
-
-## Jupiter Workshop Demos
+## Demo Commands
 
 This workspace includes runnable Jupiter demos under `scripts/`.
 
-- `deno task wallet`: derive the configured wallet address and check SOL/USDC balances.
-- `deno task swap`: request a Swap order only.
-- `deno task lend`: request a Jupiter Earn deposit transaction only.
-- `deno task dca`: request a Recurring order transaction only.
-- `deno task report`: print a Markdown wallet/demo position report for manual checks or cron.
+- `deno task wallet`: derive the configured wallet address and check SOL and USDC balances
+- `deno task swap`: request a Swap order only
+- `deno task lend`: request a Jupiter Earn deposit transaction only
+- `deno task dca`: request a Recurring order transaction only
+- `deno task report`: print a Markdown wallet and demo position report
 
-The non-execute tasks are the default path. Treat execute tasks as real money operations.
+Treat execute tasks as real-money operations.
 
 Before proposing a transaction:
 
@@ -94,6 +76,6 @@ Before proposing a transaction:
 3. Explain the exact action in one short sentence.
 4. Ask for explicit confirmation before running the matching `*:execute` task.
 
-## Make It Yours
+## Local Notes
 
-This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+Use `TOOLS.md` for machine-specific operational notes. Do not move identity or persona defaults there.

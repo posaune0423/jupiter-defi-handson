@@ -1,8 +1,10 @@
-# TOOLS.md - Local Notes
+# TOOLS.md - Local Demo Operations
 
-Skills define how tools work. This file is for your specifics — the stuff that's unique to your setup.
+This file is for machine-specific operational notes inside the demo workspace.
 
-## Jupiter Demo Commands
+Identity defaults belong in `IDENTITY.md`, not here.
+
+## Runbook
 
 Run commands from this directory.
 
@@ -14,7 +16,7 @@ deno task dca
 deno task report
 ```
 
-Execution tasks sign or submit real transactions. Use only after explicit confirmation.
+Execute tasks sign or submit real transactions. Only use them after explicit confirmation.
 
 ```sh
 deno task swap:execute
@@ -22,34 +24,20 @@ deno task lend:execute
 deno task dca:execute
 ```
 
-All tasks load encrypted environment variables with dotenvx strict mode and run Deno with `--allow-env --allow-net`.
-
 ## Environment
 
 - Required: `JUPITER_API_KEY`, `PRIVATE_KEY`
 - Optional: `SOLANA_RPC_URL`
 - Source: `.env.encrypted`
-- Do not print, paste, or commit `.env.keys`.
+- Never print or commit `.env.keys`, decrypted `.env`, or raw secret values
 
-## Recurring Checks
+## Good Uses For This File
 
-Use `deno task report` for a quick Markdown status report. It is safe for cron because it only reads wallet balances and demo defaults.
+- Host-specific command notes
+- Local device or shell quirks
+- Workshop room setup notes
+- Safe cron or report reminders
 
-## What Goes Here
+## Keep It Separate
 
-Things like:
-
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+`TOOLS.md` is for local operations. Persona, tone, and syncable identity settings live in `IDENTITY.md`, `SOUL.md`, and `AGENTS.md`.

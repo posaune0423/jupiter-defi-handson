@@ -1,56 +1,56 @@
 # OpenClaw Jupiter Demo Workspace
 
-[OpenClaw](https://docs.openclaw.ai/) の Agent Workspace テンプレート兼 Jupiter ハンズオン用デモ。
+`examples/openclaw` is a Jupiter-branded demo workspace for OpenClaw. It is meant to stay self-contained, safe by default, and easy to point an isolated agent at when you want a workshop-ready setup.
 
-参加者がそのまま `~/.openclaw/workspace` にコピーし、OpenClaw から Swap / Lend / DCA の最小フローを実行できる構成。
+## What This Workspace Is For
 
-## ファイル構成
+- Running the Jupiter demo tasks in this directory
+- Shipping a default OpenClaw identity via `IDENTITY.md`
+- Letting a user manually sync that identity into an installed agent when needed
 
-```
-examples/openclaw/
-├── AGENTS.md        # Agent の動作指示・ワークスペースルール
-├── SOUL.md          # ペルソナ・トーン・境界
-├── USER.md          # ユーザー情報（初回セッションで埋める）
-├── IDENTITY.md      # Agent のアイデンティティ（初回セッションで埋める）
-├── TOOLS.md         # ローカル環境固有のメモ
-├── HEARTBEAT.md     # 定期チェックタスク（空 = スキップ）
-├── BOOTSTRAP.md     # 初回起動リチュアル（完了後に削除）
-├── memory/          # daily memory ログ（memory/YYYY-MM-DD.md）
-├── scripts/         # OpenClaw から呼ぶ Jupiter demo scripts
-├── src/commands/    # CLI arg parse, output formatting, error display
-├── src/usecases/    # swap / lend / dca / wallet / report の本体
-├── src/lib/jupiter/ # Jupiter API wrapper
-├── src/lib/solana/  # wallet, signing, RPC, transaction confirm
-├── src/config/      # workshop demo defaults
-├── src/utils/       # env, args, token, amount, retry, error helpers
-├── deno.json        # Deno プロジェクト設定
-└── .env.encrypted   # 暗号化済み環境変数
-```
+This workspace does not assume it should rewrite your regular OpenClaw profile or repo-level onboarding flow.
 
-## セットアップ
+## Key Files
 
-### 1. OpenClaw Workspace としてコピー
+- `IDENTITY.md`: source of truth for syncable agent identity defaults
+- `AGENTS.md`: workspace rules and transaction-safety guardrails
+- `BOOTSTRAP.md`: first-session check that confirms the shipped identity
+- `SOUL.md`: demo agent personality and safety posture
+- `USER.md`: minimal participant notes
+- `TOOLS.md`: local operational notes
+
+## Register This Workspace With OpenClaw
+
+If you want OpenClaw to use this directory as an isolated agent workspace, add it explicitly:
 
 ```sh
-cp -r examples/openclaw/ ~/.openclaw/workspace
+openclaw agents add jupiter-demo \
+  --workspace ./examples/openclaw \
+  --non-interactive
 ```
 
-### 2. 環境変数の復号（必要な場合）
+Add `--model ...` or `--bind ...` only if you actually want those settings for your local agent.
+
+## Sync Identity Manually When Needed
+
+`IDENTITY.md` already contains Jupiter workshop defaults:
+
+- `Name`: `Jupiter Demo Agent`
+- `Theme`: `concise Jupiter workshop guide`
+- `Emoji`: `🪐`
+- `Avatar`: optional and unset by default
+
+If you want an installed agent that points at this workspace to match those values, run:
 
 ```sh
-cd ~/.openclaw/workspace
-dotenvx decrypt
+openclaw agents set-identity --workspace ./examples/openclaw --from-identity
 ```
 
-`.env.keys` は秘密情報なのでコミットしない。必要な環境変数は `.env.encrypted` に定義済み。
+This is a manual sync step. It is not applied automatically, and it does not need to be run unless you want the installed agent config updated.
 
-- `JUPITER_API_KEY`: [portal.jup.ag](https://portal.jup.ag) で発行した API key
-- `PRIVATE_KEY`: base58 文字列または JSON 配列形式の Solana secret key
-- `SOLANA_RPC_URL`: 省略時は `https://api.mainnet-beta.solana.com`
+## Demo Tasks
 
-### 3. Demo tasks
-
-すべて `dotenvx run -f .env.encrypted --strict -- deno run --allow-env --allow-net ...` 経由で実行される。
+All tasks run through `dotenvx` with `.env.encrypted` as the source of environment variables.
 
 ```sh
 deno task wallet
@@ -60,7 +60,9 @@ deno task dca
 deno task report
 ```
 
-通常タスクは transaction を取得するだけ。署名・送信は明示的な execute task だけで行う。
+Dry-run tasks are the default. They fetch orders or reports without sending transactions.
+
+Execute tasks are real-money operations:
 
 ```sh
 deno task swap:execute
@@ -68,21 +70,23 @@ deno task lend:execute
 deno task dca:execute
 ```
 
-Workshop-safe defaults:
+Only run execute tasks after confirming balances and getting explicit human approval.
+
+## Environment
+
+- Required: `JUPITER_API_KEY`, `PRIVATE_KEY`
+- Optional: `SOLANA_RPC_URL`
+- Source of truth: `.env.encrypted`
+
+Do not commit `.env.keys`, decrypted `.env`, or any secret values.
+
+## Default Demo Values
 
 - Swap: `0.001 SOL -> USDC`
-- Lend: `1 USDC` Earn deposit
-- DCA/Recurring: `104 USDC -> SOL`, `2` orders, `86400` seconds interval
+- Lend: `1 USDC` Earn deposit request
+- DCA/Recurring: `104 USDC -> SOL`, `2` orders, `86400` second interval
 
-DCA/Recurring は Jupiter の最小条件に合わせ、合計 `100 USD` 以上、`2` orders 以上、1 order あたり `50 USD` 以上になる値を使う。
+## References
 
-### 4. 初回セッション
-
-OpenClaw Gateway を起動すると `BOOTSTRAP.md` に従って Agent が自己紹介を開始する。
-`IDENTITY.md` と `USER.md` が埋まったら `BOOTSTRAP.md` を削除する。
-
-## 参考
-
-- [Agent Workspace](https://docs.openclaw.ai/concepts/agent-workspace)
-- [SOUL.md Personality Guide](https://docs.openclaw.ai/concepts/soul)
-- [Memory Overview](https://docs.openclaw.ai/concepts/memory)
+- [OpenClaw Agent Workspace](https://docs.openclaw.ai/concepts/agent-workspace)
+- [OpenClaw Agents CLI](https://docs.openclaw.ai/cli/agents)

@@ -1,25 +1,26 @@
-# USER.md - About Your Human
+# USER.md - Workshop Participant Notes
 
-Learn about the person you're helping. Update this as you go.
+Record only the minimum stable context needed to run the demo well.
+
+## Fill These First
 
 - Name:
 - What to call them:
-- Pronouns: (optional)
 - Timezone:
-- Notes:
-
-## Context
-
-(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)
-
-## Jupiter Workshop
-
-- Jupiter API key status: (not the key; only note whether configured)
+- Jupiter API key status: configured / missing
 - Wallet public address:
 - Preferred demo flow: Swap / Lend / DCA / Report
-- Risk preference for demos:
-- Notes from the workshop:
+- Demo risk preference: observe only / dry-run only / willing to execute after confirmation
 
----
+## Optional Context
 
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+- Pronouns:
+- Workshop goal:
+- Constraints or blockers:
+- Notes:
+
+## Rules
+
+- Never store secrets here.
+- Keep entries short and operational.
+- Update this file when a preference becomes stable enough to matter across sessions.

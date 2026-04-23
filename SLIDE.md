@@ -195,10 +195,13 @@ dotenvx set JUPITER_API_KEY ${your_api_key} --env-file .env.encrypted
 ## 2. OpenClawにagentを追加
 
 ```bash
-openclaw agents add jupiter-test-agent \
-          --workspace ./examples/openclaw \
-          --model openai-codex/gpt-5.4 \
-          --non-interactive
+openclaw agents add jupiter-demo \
+  --workspace ./examples/openclaw \
+  --non-interactive
+
+openclaw agents set-identity \
+  --workspace ./examples/openclaw \
+  --from-identity
 ```
 
 ---

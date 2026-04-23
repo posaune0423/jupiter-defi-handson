@@ -12,3 +12,5 @@ MEMORY.md
 **/*.key
 **/*.pem
 **/secrets*
+
+.openclaw
