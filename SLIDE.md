@@ -223,6 +223,7 @@ openclaw tui
 
 ## 4. OpenClaw経由でswapを実行する
 
+prompt例
 ```txt
 SOLを1USDCにswapしてください
 ```
@@ -231,6 +232,7 @@ SOLを1USDCにswapしてください
 
 ## 5. OpenClaw経由でlendを実行する
 
+prompt例
 ```txt
 最小額のdeposit額をlendしてください
 ```
@@ -241,6 +243,7 @@ SOLを1USDCにswapしてください
 
 <!-- dcaは100USDCがminimum, 2回分割の50USDC / order -->
 
+prompt例
 ```txt
 scheduling orderでdcaを実行してください
 ```
