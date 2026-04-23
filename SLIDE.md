@@ -47,26 +47,18 @@ footer: '© Jupiter × SuzuPay  |  Clawathon Tokyo Edition'
 
 ---
 
+<!-- _class: agenda-table -->
+
 ## 本日の流れ
 
-<table class="compact-table">
-  <thead>
-    <tr>
-      <th>Section</th>
-      <th>Time</th>
-      <th>内容</th>
-      <th>目的</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>1</td><td>5 min</td><td>Jupiter API / Why Jupiter</td><td>Jupiterの強みを理解する</td></tr>
-    <tr><td>2</td><td>5 min</td><td>Jupiter Agent Skills とは</td><td>Jupiter Agent Skills が開発をどう加速するか理解する</td></tr>
-    <tr><td>3</td><td>20 min</td><td>デモ</td><td>Agent に実装を依頼する流れを見る</td></tr>
-    <tr><td>4</td><td>15 min</td><td>最小実装ハンズオン</td><td>Swap / Lend / Recurring の基本形を掴む</td></tr>
-    <tr><td>5</td><td>10 min</td><td>実務的な注意点 / Advanced Topics</td><td>error handling と production hardening の要点を押さえる</td></tr>
-    <tr><td>6</td><td>5 min</td><td>Q&A / Closing</td><td>質疑応答と参考資料の確認</td></tr>
-  </tbody>
-</table>
+| Section | Time | 内容 | 目的 |
+| :-- | :-- | :-- | :-- |
+| 1 | 5 min | API / Why Jupiter | Jupiterの強みを掴む |
+| 2 | 5 min | Jupiter Agent Skills | 開発加速の仕組みを理解する |
+| 3 | 20 min | デモ | Agent実装フローを見る |
+| 4 | 15 min | 最小実装 | Swap / Lend / Recurring の基本形 |
+| 5 | 10 min | 実務の注意点 | Error handling と hardening の要点 |
+| 6 | 5 min | Q&A / Closing | 質疑応答と参考資料確認 |
 
 ---
 
@@ -287,52 +279,36 @@ scheduling orderでdcaを実行してください
 
 ---
 
+<!-- _class: compact-table -->
+
 ### 2. Error Handling
 
-<style scoped>
-table { font-size: 0.52em; line-height: 1.3; }
-td, th { padding: 0.3rem 0.45rem; }
-</style>
-
-<table>
-  <thead>
-    <tr><th>罠</th><th>説明</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>TTL（有効期限）</td><td>署名済みTxは約2分で失効 → 再クォート必須</td></tr>
-    <tr><td>冪等性</td><td>同じ <code>requestId</code> + <code>signedTx</code> で2分以内なら再送可</td></tr>
-    <tr><td>Rate Limit</td><td>50 req / 10s 基本。<code>Retry-After</code> ヘッダーを必ず確認</td></tr>
-    <tr><td>署名エラー(-1003)</td><td>全必要署名者が揃っているか確認</td></tr>
-    <tr><td>/build と /execute 混用</td><td>/build の Tx は自前RPC経由のみ。/execute に渡すと失敗</td></tr>
-    <tr><td>payer 指定時</td><td>ルートが Metis のみに限定（JupiterZ / DFlow 除外）</td></tr>
-  </tbody>
-</table>
+| 罠 | 説明 |
+| :-- | :-- |
+| TTL（有効期限） | 署名済みTxは約2分で失効 → 再クォート必須 |
+| 冪等性 | 同じ `requestId` + `signedTx` で2分以内なら再送可 |
+| Rate Limit | 50 req / 10s 基本。`Retry-After` ヘッダーを必ず確認 |
+| 署名エラー(-1003) | 全必要署名者が揃っているか確認 |
+| `/build` と `/execute` 混用 | `/build` の Tx は自前RPC経由のみ。`/execute` に渡すと失敗 |
+| payer 指定時 | ルートが Metis のみに限定（JupiterZ / DFlow 除外） |
 
 ---
+
+<!-- _class: compact-table -->
 
 ### 2. Error Handling
 
 エラーコード対応表
 
-<style scoped>
-table { font-size: 0.52em; line-height: 1.3; }
-td, th { padding: 0.3rem 0.45rem; }
-</style>
-
-<table>
-  <thead>
-    <tr><th>Code</th><th>分類</th><th>対処法</th><th>Retry</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><code>-1</code></td><td>オーダー失効</td><td>再クォート</td><td>✓</td></tr>
-    <tr><td><code>-1000</code></td><td>ランディング失敗</td><td>パラメータ調整して再試行</td><td>✓</td></tr>
-    <tr><td><code>-1001</code></td><td>不明エラー</td><td>指数バックオフで再試行</td><td>✓</td></tr>
-    <tr><td><code>-1003</code></td><td>署名不足</td><td>全署名者を確認</td><td>✗</td></tr>
-    <tr><td><code>-1004</code></td><td>Blockhash失効</td><td>再クォート（TTL切れ）</td><td>✓</td></tr>
-    <tr><td><code>-2003</code></td><td>クォート失効(RFQ)</td><td>再クォート</td><td>✓</td></tr>
-    <tr><td><code>429</code></td><td>Rate Limit超過</td><td><code>Retry-After</code> 後に再試行</td><td>✓</td></tr>
-  </tbody>
-</table>
+| Code | 分類 | 対処法 | Retry |
+| :-- | :-- | :-- | :--: |
+| `-1` | オーダー失効 | 再クォート | ✓ |
+| `-1000` | ランディング失敗 | パラメータ調整して再試行 | ✓ |
+| `-1001` | 不明エラー | 指数バックオフで再試行 | ✓ |
+| `-1003` | 署名不足 | 全署名者を確認 | ✗ |
+| `-1004` | Blockhash失効 | 再クォート（TTL切れ） | ✓ |
+| `-2003` | クォート失効(RFQ) | 再クォート | ✓ |
+| `429` | Rate Limit超過 | `Retry-After` 後に再試行 | ✓ |
 
 ---
 
@@ -343,7 +319,7 @@ td, th { padding: 0.3rem 0.45rem; }
 リトライ戦略
 
 <style scoped>
-pre { font-size: 0.52em; }
+pre { font-size: 0.46em; }
 </style>
 
 ```javascript
@@ -363,11 +339,7 @@ async function withRetry(fn, max = 3) {
 }
 ```
 
-<div class="note-banner">
-
 **タイムアウト目安**: クォート 5s / 実行 30s / 合計オペレーション 60s
-
-</div>
 
 ---
 
@@ -375,25 +347,15 @@ async function withRetry(fn, max = 3) {
 
 本番投入チェックリスト
 
-<style scoped>
-table { font-size: 0.58em; line-height: 1.4; }
-td, th { padding: 0.35rem 0.5rem; }
-</style>
-
-<table>
-  <thead>
-    <tr><th></th><th>項目</th><th>内容</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>✓</td><td><strong>APIキー検証</strong></td><td>起動時に <code>x-api-key</code> 未設定なら即 Fail Fast</td></tr>
-    <tr><td>✓</td><td><strong>タイムアウト設定</strong></td><td>全 fetch 呼び出しに <code>AbortController</code> を追加</td></tr>
-    <tr><td>✓</td><td><strong>リトライ対象の分類</strong></td><td>retryable / non-retryable をエラーコードで判定</td></tr>
-    <tr><td>✓</td><td><strong>requestId のロギング</strong></td><td>全APIコールの requestId + status をログに記録</td></tr>
-    <tr><td>✓</td><td><strong>冪等性の確認</strong></td><td>再送前に同Txが確定していないかチェック</td></tr>
-    <tr><td>✓</td><td><strong>Slippage 上限設定</strong></td><td>アプリ設定から最大スリッページを強制</td></tr>
-    <tr><td>✓</td><td><strong>残高・アドレス検証</strong></td><td>実行前に mint アドレスと残高を確認</td></tr>
-  </tbody>
-</table>
+|  | 項目 | 内容 |
+| :--: | :-- | :-- |
+| ✓ | **APIキー検証** | 起動時に `x-api-key` 未設定なら即 Fail Fast |
+| ✓ | **タイムアウト設定** | 全 fetch 呼び出しに `AbortController` を追加 |
+| ✓ | **リトライ対象の分類** | retryable / non-retryable をエラーコードで判定 |
+| ✓ | **requestId のロギング** | 全APIコールの requestId + status をログに記録 |
+| ✓ | **冪等性の確認** | 再送前に同Txが確定していないかチェック |
+| ✓ | **Slippage 上限設定** | アプリ設定から最大スリッページを強制 |
+| ✓ | **残高・アドレス検証** | 実行前に mint アドレスと残高を確認 |
 
 ---
 

@@ -214,6 +214,8 @@ table {
   display: inline-table;
   width: auto;
   max-width: 100%;
+  font-size: 0.76em;
+  line-height: 1.24;
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
@@ -224,6 +226,7 @@ table {
 
 table th,
 table td {
+  padding: 0.3rem 0.44rem;
   color: var(--jupiter-text);
   background: transparent;
   border-color: var(--jupiter-border);
@@ -436,16 +439,49 @@ blockquote p {
   line-height: 1.5;
 }
 
-.compact-table {
+.compact-table table {
   width: 100%;
-  font-size: 0.58em;
-  line-height: 1.35;
+  font-size: 0.35em;
+  line-height: 1.08;
 }
 
 .compact-table th,
 .compact-table td {
-  padding: 0.45rem 0.55rem;
+  padding: 0.14rem 0.2rem;
   vertical-align: top;
+}
+
+.agenda-table table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.19em;
+  line-height: 1.08;
+}
+
+.agenda-table th,
+.agenda-table td {
+  padding: 0.06rem 0.1rem;
+  vertical-align: top;
+}
+
+.agenda-table th:nth-child(1),
+.agenda-table td:nth-child(1) {
+  width: 8%;
+}
+
+.agenda-table th:nth-child(2),
+.agenda-table td:nth-child(2) {
+  width: 12%;
+}
+
+.agenda-table th:nth-child(3),
+.agenda-table td:nth-child(3) {
+  width: 28%;
+}
+
+.agenda-table th:nth-child(4),
+.agenda-table td:nth-child(4) {
+  width: 52%;
 }
 
 .note-banner {
