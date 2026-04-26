@@ -42,11 +42,12 @@ export async function runDcaCommand(args = Deno.args): Promise<void> {
   try {
     const parsed = parseArgs(args);
     const env = loadEnv();
+    const execute = getBooleanArg(parsed, "execute");
     const result = await executeDcaUsecase(env, {
       amount: getStringArg(parsed, "amount"),
       orders: getIntegerArg(parsed, "orders"),
       intervalSeconds: getIntegerArg(parsed, "interval-seconds"),
-      execute: getBooleanArg(parsed, "execute"),
+      execute,
     });
     console.log(formatDcaResult(result));
   } catch (error) {

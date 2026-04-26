@@ -16,6 +16,7 @@ This workspace does not assume it should rewrite your regular OpenClaw profile o
 - `AGENTS.md`: workspace rules and transaction-safety guardrails
 - `BOOTSTRAP.md`: first-session check that confirms the shipped identity
 - `SOUL.md`: demo agent personality and safety posture
+- `ACTIONS.md`: Jupiter intent router and supported command catalog
 - `USER.md`: minimal participant notes
 - `TOOLS.md`: local operational notes
 
@@ -30,6 +31,36 @@ openclaw agents add jupiter-demo \
 ```
 
 Add `--model ...` or `--bind ...` only if you actually want those settings for your local agent.
+
+The installed agent must also have runtime command tools enabled. In `~/.openclaw/openclaw.json`, the `jupiter-demo` agent should have scoped tools like this:
+
+```json
+"tools": {
+  "profile": "coding",
+  "allow": ["group:fs", "group:runtime", "group:web"],
+  "deny": [
+    "group:ui",
+    "group:nodes",
+    "image",
+    "Read(.env.keys)",
+    "Read(/**/.env.keys)",
+    "Write(.env.keys)",
+    "Write(/**/.env.keys)",
+    "Bash(dotenvx get *)",
+    "Bash(dotenvx decrypt *)"
+  ],
+  "exec": {
+    "host": "gateway",
+    "security": "full",
+    "ask": "off"
+  },
+  "fs": {
+    "workspaceOnly": true
+  }
+}
+```
+
+This keeps execution local to OpenClaw's gateway runtime while still blocking common secret extraction paths.
 
 ## Sync Identity Manually When Needed
 
@@ -71,6 +102,23 @@ deno task dca:execute
 ```
 
 Only run execute tasks after confirming balances and getting explicit human approval.
+OpenClaw is the harness for transaction workflows: it should run `wallet`, dry-run, execute after confirmation, then `wallet` again. Execute tasks themselves stay single-purpose and print the transaction result, including the explorer link. User-facing output intentionally hides lamports and raw token base units.
+
+When a user gives a specific swap intent, pass the same flags to dry-run and execute:
+
+```sh
+deno task wallet
+deno task swap --input SOL --output USDC --amount 0.001
+deno task swap:execute --input SOL --output USDC --amount 0.001
+```
+
+For "1 USDC worth of SOL", use the target-output form:
+
+```sh
+deno task wallet
+deno task swap --input SOL --output USDC --output-amount 1
+deno task swap:execute --input SOL --output USDC --output-amount 1
+```
 
 ## Environment
 

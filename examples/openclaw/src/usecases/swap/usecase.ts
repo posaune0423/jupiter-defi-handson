@@ -1,4 +1,5 @@
 import { DEFAULT_SWAP } from "../../config/demo-defaults.ts";
+import { createPriceApi, type PriceApi } from "../../lib/jupiter/price-api.ts";
 import {
   createSwapApi,
   type SwapApi,
@@ -8,7 +9,7 @@ import {
 } from "../../lib/jupiter/swap-api.ts";
 import { signBase64Transaction } from "../../lib/solana/transactions.ts";
 import { type DemoWallet, getWallet } from "../../lib/solana/wallet.ts";
-import { parseBaseUnits } from "../../utils/amounts.ts";
+import { formatBaseUnits, parseBaseUnits } from "../../utils/amounts.ts";
 import type { DemoEnv } from "../../utils/env.ts";
 import {
   ExternalServiceError,
@@ -22,6 +23,7 @@ export interface SwapCommandInput {
   input?: string;
   output?: string;
   amount?: string;
+  outputAmount?: string;
   execute: boolean;
 }
 
@@ -31,6 +33,7 @@ export interface SwapResult {
   inputToken: TokenMetadata;
   outputToken: TokenMetadata;
   displayAmount: string;
+  outputDisplayAmount?: string;
   rawAmount: string;
   signature?: string;
   explorerUrl?: string;
@@ -43,6 +46,7 @@ export interface SwapUsecaseDependencies {
   parseBaseUnits: (amount: string, decimals: number) => bigint;
   getWallet: (privateKey: string) => Promise<DemoWallet>;
   signTransaction: (txBase64: string, wallet: DemoWallet) => Promise<string>;
+  priceApi: PriceApi;
   swapApi: SwapApi;
 }
 
@@ -52,6 +56,7 @@ function createDefaultDependencies(env: DemoEnv): SwapUsecaseDependencies {
     parseBaseUnits,
     getWallet,
     signTransaction: signBase64Transaction,
+    priceApi: createPriceApi(),
     swapApi: createSwapApi(env),
   };
 }
@@ -86,6 +91,91 @@ function ensureOrderTransaction(order: SwapOrderResponse): string {
   return order.transaction;
 }
 
+function estimateInputRawAmount(
+  targetOutputRaw: bigint,
+  inputToken: TokenMetadata,
+  outputToken: TokenMetadata,
+  inputUsdPrice: number,
+  outputUsdPrice: number,
+): bigint {
+  if (!Number.isFinite(inputUsdPrice) || inputUsdPrice <= 0) {
+    throw new ValidationError(
+      `Missing valid USD price for ${inputToken.symbol}`,
+    );
+  }
+  if (!Number.isFinite(outputUsdPrice) || outputUsdPrice <= 0) {
+    throw new ValidationError(
+      `Missing valid USD price for ${outputToken.symbol}`,
+    );
+  }
+
+  const targetOutputUnits = Number(targetOutputRaw) /
+    (10 ** outputToken.decimals);
+  const estimatedInputUnits = targetOutputUnits * outputUsdPrice /
+    inputUsdPrice;
+  const estimatedRaw = Math.ceil(
+    estimatedInputUnits * (10 ** inputToken.decimals),
+  );
+
+  if (!Number.isSafeInteger(estimatedRaw) || estimatedRaw <= 0) {
+    throw new ValidationError("Estimated input amount is invalid");
+  }
+
+  return BigInt(estimatedRaw);
+}
+
+async function resolveSwapAmount(
+  input: SwapCommandInput,
+  inputToken: TokenMetadata,
+  outputToken: TokenMetadata,
+  deps: SwapUsecaseDependencies,
+): Promise<{
+  displayAmount: string;
+  outputDisplayAmount?: string;
+  rawAmount: bigint;
+}> {
+  if (input.amount && input.outputAmount) {
+    throw new ValidationError(
+      "Use either --amount or --output-amount, not both",
+    );
+  }
+
+  if (input.outputAmount) {
+    const targetOutputRaw = validateAmount(
+      input.outputAmount,
+      outputToken.decimals,
+      deps.parseBaseUnits,
+    );
+    const prices = await deps.priceApi.getPrices([
+      inputToken.mint,
+      outputToken.mint,
+    ]);
+    const rawAmount = estimateInputRawAmount(
+      targetOutputRaw,
+      inputToken,
+      outputToken,
+      prices[inputToken.mint]?.usdPrice,
+      prices[outputToken.mint]?.usdPrice,
+    );
+
+    return {
+      displayAmount: formatBaseUnits(rawAmount, inputToken.decimals),
+      outputDisplayAmount: input.outputAmount,
+      rawAmount,
+    };
+  }
+
+  const displayAmount = input.amount ?? DEFAULT_SWAP.amount;
+  return {
+    displayAmount,
+    rawAmount: validateAmount(
+      displayAmount,
+      inputToken.decimals,
+      deps.parseBaseUnits,
+    ),
+  };
+}
+
 function ensureExecuteSuccess(
   result: SwapExecuteResponse,
 ): { signature: string } {
@@ -105,12 +195,8 @@ export async function executeSwapUsecase(
   const deps = { ...createDefaultDependencies(env), ...dependencies };
   const inputToken = deps.resolveToken(input.input ?? DEFAULT_SWAP.input);
   const outputToken = deps.resolveToken(input.output ?? DEFAULT_SWAP.output);
-  const displayAmount = input.amount ?? DEFAULT_SWAP.amount;
-  const rawAmount = validateAmount(
-    displayAmount,
-    inputToken.decimals,
-    deps.parseBaseUnits,
-  );
+  const { displayAmount, outputDisplayAmount, rawAmount } =
+    await resolveSwapAmount(input, inputToken, outputToken, deps);
   const wallet = await deps.getWallet(env.PRIVATE_KEY);
 
   let order: SwapOrderResponse;
@@ -140,6 +226,7 @@ export async function executeSwapUsecase(
       inputToken,
       outputToken,
       displayAmount,
+      outputDisplayAmount,
       rawAmount: rawAmount.toString(),
     };
   }
@@ -166,6 +253,7 @@ export async function executeSwapUsecase(
     inputToken,
     outputToken,
     displayAmount,
+    outputDisplayAmount,
     rawAmount: rawAmount.toString(),
     signature,
     explorerUrl: buildSolscanTransactionUrl(signature),

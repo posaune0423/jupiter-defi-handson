@@ -40,9 +40,10 @@ export async function runLendCommand(args = Deno.args): Promise<void> {
   try {
     const parsed = parseArgs(args);
     const env = loadEnv();
+    const execute = getBooleanArg(parsed, "execute");
     const result = await executeLendUsecase(env, {
       amount: getStringArg(parsed, "amount"),
-      execute: getBooleanArg(parsed, "execute"),
+      execute,
     });
     console.log(formatLendResult(result));
   } catch (error) {

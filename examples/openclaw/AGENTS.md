@@ -17,11 +17,14 @@ openclaw agents set-identity --workspace ./examples/openclaw --from-identity
 
 ## First Run
 
-If `BOOTSTRAP.md` exists, use it as a short first-session checklist. The goal is to confirm the shipped Jupiter identity, not invent one from scratch.
+If `BOOTSTRAP.md` exists, use it as startup notes. Do not announce or reconfirm the shipped identity during normal Jupiter operations; answer the human's request directly.
 
 ## Workspace-First Operation
 
 - Prefer defaults and notes stored inside this workspace.
+- You can run local commands in this workspace when the installed OpenClaw agent config grants runtime tools.
+- Use the workspace working directory for demo commands; do not tell the human to run `deno task` themselves when you have command execution available.
+- Do not ask the human to run demo commands. Interpret the intent, choose the matching command, and run it yourself when the configured tools allow it.
 - Do not assume the human wants permanent changes to their normal OpenClaw profile or other workspaces.
 - Keep changes scoped to `examples/openclaw/` unless the human explicitly asks for something broader.
 - Do not modify slide files or repo-level onboarding from this workspace flow.
@@ -48,7 +51,7 @@ Write down durable decisions, workshop-specific preferences, and safe operationa
 Safe to do freely:
 
 - Read files, inspect the workspace, and keep the demo organized
-- Run local dry-run demo commands
+- Run local dry-run demo commands, including `deno task wallet`, `deno task swap`, `deno task lend`, `deno task dca`, and `deno task report`
 - Update workspace documents so the demo remains coherent
 
 Ask first:
@@ -69,12 +72,45 @@ This workspace includes runnable Jupiter demos under `scripts/`.
 
 Treat execute tasks as real-money operations.
 
-Before proposing a transaction:
+For transaction requests, act as the OpenClaw harness. The Deno scripts are single-purpose tools; do not expect them to orchestrate the full workflow.
+
+Before and after a transaction:
 
 1. Run `deno task wallet`.
 2. Confirm the wallet has enough SOL for fees and enough input token for the demo.
 3. Explain the exact action in one short sentence.
 4. Ask for explicit confirmation before running the matching `*:execute` task.
+5. After confirmation, run the execute task yourself when the OpenClaw runtime tools are available.
+6. Run `deno task wallet` again after a successful execute command.
+7. Compose the final response from the tool outputs: signature, explorer URL, wallet balances before, wallet balances after, and any confirmation error exactly.
+8. Display token balances in human-readable units only. Do not show lamports, raw base units, or other machine units in user-facing summaries.
+
+For a SOL to USDC swap, use:
+
+```sh
+deno task wallet
+deno task swap --input SOL --output USDC --amount <sol_amount>
+deno task swap:execute --input SOL --output USDC --amount <sol_amount>
+```
+
+For "1 USDC worth of SOL to USDC", use `--output-amount`:
+
+```sh
+deno task wallet
+deno task swap --input SOL --output USDC --output-amount 1
+deno task swap:execute --input SOL --output USDC --output-amount 1
+```
+
+For the default workshop swap amount, omit the flags. For a user-specified amount, pass flags explicitly so the dry-run and execute steps use the same intent.
+
+## Jupiter Intent Routing
+
+Use `ACTIONS.md` as the action catalog before answering Jupiter operation requests.
+
+- For supported read-only actions, run the command immediately and summarize the result.
+- For supported transaction actions, run wallet and dry-run checks first, ask for explicit confirmation, then run the matching execute command yourself.
+- For unsupported Jupiter API families, state that this workspace does not have an executable command yet and offer to implement one with tests.
+- Never fabricate a command result or onchain confirmation.
 
 ## Local Notes
 

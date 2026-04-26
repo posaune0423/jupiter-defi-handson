@@ -4,20 +4,7 @@ import {
   TransactionExecutionError,
 } from "../utils/errors.ts";
 import { getWalletSummary } from "../usecases/wallet/usecase.ts";
-
-function formatWalletSummary(
-  summary: Awaited<ReturnType<typeof getWalletSummary>>,
-): string {
-  const [solBalance, usdcBalance] = summary.balances;
-
-  return [
-    "# OpenClaw Jupiter Wallet",
-    "",
-    `Address: ${summary.walletAddress}`,
-    `SOL: ${solBalance.amount} (${solBalance.rawAmount} lamports)`,
-    `USDC: ${usdcBalance.amount} (${usdcBalance.rawAmount} base units)`,
-  ].join("\n");
-}
+import { formatWalletSummary } from "./balance-format.ts";
 
 function printError(error: unknown): never {
   console.error(`[wallet] ${formatErrorMessage(error)}`);

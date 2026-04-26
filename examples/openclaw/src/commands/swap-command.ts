@@ -4,16 +4,24 @@ import {
   formatErrorMessage,
   TransactionExecutionError,
 } from "../utils/errors.ts";
+import { formatBaseUnits } from "../utils/amounts.ts";
 import {
   executeSwapUsecase,
   type SwapResult,
 } from "../usecases/swap/usecase.ts";
 
-function formatSwapResult(result: SwapResult): string {
+export function formatSwapResult(result: SwapResult): string {
   const lines = [
     `[swap] Requesting order: ${result.displayAmount} ${result.inputToken.symbol} -> ${result.outputToken.symbol}`,
     `[swap] Order received: requestId=${result.requestId}`,
   ];
+  if (result.outputDisplayAmount) {
+    lines.splice(
+      1,
+      0,
+      `[swap] Target output value: ${result.outputDisplayAmount} ${result.outputToken.symbol}`,
+    );
+  }
 
   if (result.mode === "dry-run") {
     lines.push(
@@ -26,12 +34,25 @@ function formatSwapResult(result: SwapResult): string {
   lines.push(`signature: ${result.signature}`);
   lines.push(`explorer: ${result.explorerUrl}`);
   if (result.inputAmountResult) {
-    lines.push(`inputAmountResult: ${result.inputAmountResult}`);
+    lines.push(
+      `actual input: ${
+        formatBaseUnits(
+          BigInt(result.inputAmountResult),
+          result.inputToken.decimals,
+        )
+      } ${result.inputToken.symbol}`,
+    );
   }
   if (result.outputAmountResult) {
-    lines.push(`outputAmountResult: ${result.outputAmountResult}`);
+    lines.push(
+      `actual output: ${
+        formatBaseUnits(
+          BigInt(result.outputAmountResult),
+          result.outputToken.decimals,
+        )
+      } ${result.outputToken.symbol}`,
+    );
   }
-
   return lines.join("\n");
 }
 
@@ -47,11 +68,13 @@ export async function runSwapCommand(args = Deno.args): Promise<void> {
   try {
     const parsed = parseArgs(args);
     const env = loadEnv();
+    const execute = getBooleanArg(parsed, "execute");
     const result = await executeSwapUsecase(env, {
       input: getStringArg(parsed, "input"),
       output: getStringArg(parsed, "output"),
       amount: getStringArg(parsed, "amount"),
-      execute: getBooleanArg(parsed, "execute"),
+      outputAmount: getStringArg(parsed, "output-amount"),
+      execute,
     });
     console.log(formatSwapResult(result));
   } catch (error) {

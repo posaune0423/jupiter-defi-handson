@@ -185,7 +185,8 @@ AIで開発する時代、手を動かして実装するハンズオンとかっ
 
 ```bash
 export JUPITER_API_KEY="your api key"
-# or
+# or using dotenvx
+curl -sfS https://dotenvx.sh | sh
 dotenvx set JUPITER_API_KEY ${your_api_key} --env-file .env.encrypted
 ```
 などで環境変数に値をset
