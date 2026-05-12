@@ -1,77 +1,43 @@
-# Agent Guidelines
+# Repository Guidelines
 
-- please do not eslint-disable, just fix the implementation
-- Please use GitHub Flavored Markdown
+## Project Structure & Module Organization
 
-## Project Docs (Project Context)
+This repository manages Marp slides for a Jupiter presentation in the AUTON Program. Keep event goals and narrative requirements in `docs/PRD.md`, technical and presentation policy in `docs/TECH.md`, and placement rules in `docs/STRUCTURE.md`.
 
-Load `docs/` as project memory at session start or when context is needed.
+The main deck is `SLIDE.md`. Store reusable images and screenshots in `assets/`, Marp theme CSS in `theme/jupiter.css`, and generated files such as `SLIDE.pdf` in `output/`. Do not add demo application code unless the PRD is updated to require it.
 
-- **Path**: `docs/`
-- **Default files**: `PRD.md`, `TECH.md`, `STRUCTURE.md`
-- **Task memory**: `.agents/memory/todo.md`, `.agents/memory/lessons.md`
-- **Other docs**: Add or manage as needed (domain-specific .md)
+## Build, Preview, and Development Commands
 
-Use these docs to align decisions with product goals, tech stack, and structure.
+Use the Marp config in `.marprc-ci.yml` for consistent output.
 
----
+```sh
+bunx @marp-team/marp-cli@latest --config .marprc-ci.yml
+```
 
-## Workflow Orchestration
+For quick local preview, run a Marp-compatible editor preview or:
 
-### 1. Plan Node Default
+```sh
+bunx @marp-team/marp-cli@latest SLIDE.md --theme-set theme --allow-local-files --preview
+```
 
-- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
-- If something goes sideways, STOP and re-plan immediately - don't keep pushing
-- Use plan mode for verification steps, not just building
-- Write detailed specs upfront to reduce ambiguity
+Before submitting slide changes, regenerate `output/SLIDE.pdf` and visually inspect pages that changed, especially diagrams, screenshots, and dense Japanese text.
 
-### 2. Subagent Strategy
+## Writing Style & Naming Conventions
 
-- Use subagents liberally to keep main context window clean
-- Offload research, exploration, and parallel analysis to subagents
-- For complex problems, throw more compute at it via subagents
-- One tack per subagent for focused execution
+Write Markdown in GitHub Flavored Markdown plus Marp slide separators. Keep slide text concise and beginner-friendly; this deck targets DeFi learners and should explain Aggregator and Perps without assuming deep protocol knowledge. Use Japanese for audience-facing slide content unless the surrounding section intentionally uses English terminology.
 
-### 3. Self-Improvement Loop
+Use lowercase, descriptive asset names such as `assets/jupiter-logo.svg` or `assets/pricing.jpg`. Keep custom styling in `theme/jupiter.css`; avoid inline style drift in `SLIDE.md` when a reusable class is more appropriate.
 
-- After ANY correction from the user: update `.agents/memory/lessons.md` with the pattern
-- Write rules for yourself that prevent the same mistake
-- Ruthlessly iterate on these lessons until mistake rate drops
-- Review lessons at session start for relevant project
+## Validation Guidelines
 
-### 4. Verification Before Done
+There is no TypeScript demo test suite for this scope. Validate changes by rendering the deck, checking that local assets resolve, and reviewing the generated PDF. For visual changes, confirm text is not clipped, images are readable, and the first viewport of each slide communicates the point quickly.
 
-- Never mark a task complete without proving it works
-- Diff behavior between main and your changes when relevant
-- Ask yourself: "Would a staff engineer approve this?"
-- Run tests, check logs, demonstrate correctness
+## Commit & Pull Request Guidelines
 
-### 5. Demand Elegance (Balanced)
+Recent history uses short imperative subjects, often with prefixes such as `docs:`, `fix:`, `refactor:`, `chore:`, and `feat:`. Keep commits focused on one deck or documentation concern.
 
-- For non-trivial changes: pause and ask "is there a more elegant way?"
-- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
-- Skip this for simple, obvious fixes - don't over-engineer
-- Challenge your own work before presenting it
+PRs should summarize the slide/story change, mention updated assets or generated outputs, and list the render command used. Include screenshots or the regenerated `output/SLIDE.pdf` when layout, images, or theme styling changes.
 
-### 6. Autonomous Bug Fixing
+## Security & Configuration
 
-- When given a bug report: just fix it. Don't ask for hand-holding
-- Point at logs, errors, failing tests - then resolve them
-- Zero context switching required from the user
-- Go fix failing CI tests without being told how
-
-## Task Management
-
-1. **Plan First**: Write plan to `.agents/memory/todo.md` with checkable items
-2. **Verify Plan**: Check in before starting implementation
-3. **Track Progress**: Mark items complete as you go
-4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Add review section to `.agents/memory/todo.md`
-6. **Capture Lessons**: Update `.agents/memory/lessons.md` after corrections
-
-## Core Principles
-
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code. YAGNI, KISS, DRY. No backward-compat shims or fallback paths unless they come free without adding cyclomatic complexity.
-- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-- **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
-- **Clear & descriptive Comment**: 生成コードの流れやstepを明確にしわかりやすいコメントを書いてください。
+Do not commit wallet keys, `.env`, private screenshots, or unreleased partner material. Public examples should be safe for workshop attendees to view and reuse.
