@@ -233,9 +233,9 @@ Funding
 価格などの、Blockchain上だけでは計算できない**外部データ**を、Smart Contract
 などを通してオンチェーンに載せる**橋渡し**的なシステム。
 
-<div class="deck-logo-row">
+<div class="oracle-logo-strip">
 
-<div class="deck-logo-box">
+<div class="deck-logo-box compact-logo-box">
 
 <img src="assets/logos/chainlink.svg" alt="Chainlink" class="deck-logo" />
 
@@ -243,7 +243,7 @@ Funding
 
 </div>
 
-<div class="deck-logo-box">
+<div class="deck-logo-box compact-logo-box">
 
 <img src="assets/logos/pyth.svg" alt="Pyth" class="deck-logo" />
 
@@ -253,15 +253,47 @@ Funding
 
 </div>
 
-<div class="grid grid-cols-1 gap-6 mt-8">
+---
 
-<div class="glass-card">
+<!-- header: Perpetual -->
 
-<h4>Perp DEX との関係</h4>
+## Oracle と Perp DEX
 
-<p>Perp DEX はこの Oracle を通して現物価格を知り、それに応じて FR を変化させ、価格の乖離を是正する。</p>
+<div class="oracle-flow">
+
+<div class="flow-node">
+
+<h4>Spot Market</h4>
+
+<p>現物市場の価格</p>
 
 </div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node oracle-node">
+
+<h4>Oracle</h4>
+
+<p>オンチェーンで参照できる価格へ変換</p>
+
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+
+<h4>Perp DEX</h4>
+
+<p>Funding Rate や清算判定の入力に使う</p>
+
+</div>
+
+</div>
+
+<div class="spotlight">
+
+Perp DEX は Oracle を通して現物価格を知り、それに応じて FR を変化させ、価格の乖離を是正する。
 
 </div>
 
@@ -272,28 +304,28 @@ Funding
 
 ## Perp DEX の種類
 
-<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="dex-card-grid">
 
-<div class="glass-card">
+<div class="glass-card dex-type-card">
 
 <h4>CLOB 型</h4>
 
 <ul class="dex-list">
-<li><img src="assets/logos/hyperliquid.svg" alt="" class="deck-logo-sm" /> Hyperliquid</li>
-<li><img src="assets/logos/bulk-trade-on-dark.png" alt="" class="deck-logo-sm" /> Bulk</li>
+<li><span class="dex-logo-frame"><img src="assets/logos/hyperliquid.svg" alt="Hyperliquid" class="deck-logo-sm" /></span><span class="dex-copy"><strong>Hyperliquid</strong><small>高性能なオーダーブック型</small></span></li>
+<li><span class="dex-logo-frame"><img src="assets/logos/bulk-trade.svg" alt="BULK" class="deck-logo-sm deck-logo-wordmark" /></span><span class="dex-copy"><strong>BULK</strong><small>Solana 上の高速 Perp DEX</small></span></li>
+<li><span class="dex-logo-frame"><img src="assets/logos/dydx.png" alt="dYdX" class="deck-logo-sm" /></span><span class="dex-copy"><strong>dYdX</strong><small>app-chain 系の order book</small></span></li>
 </ul>
 
 </div>
 
-<div class="glass-card">
+<div class="glass-card dex-type-card">
 
 <h4>AMM 型（LP がカウンターパーティ）</h4>
 
 <ul class="dex-list">
-<li><img src="assets/logos/jupiter.svg" alt="" class="deck-logo-sm" /> Jupiter Perp（JLP）</li>
-<li>GMX（GM / GLP などの一括プール）</li>
-<li>Gains Network（gTrade・金庫型）</li>
-<li>MUX Protocol（MUXLP など）</li>
+<li><span class="dex-logo-frame"><img src="assets/logos/jupiter.svg" alt="Jupiter" class="deck-logo-sm" /></span><span class="dex-copy"><strong>Jupiter Perp</strong><small>JLP が流動性の受け皿</small></span></li>
+<li><span class="dex-logo-frame"><img src="assets/logos/gmx.png" alt="GMX" class="deck-logo-sm" /></span><span class="dex-copy"><strong>GMX</strong><small>GM / GLP などのプール</small></span></li>
+<li><span class="dex-logo-frame"><img src="assets/logos/gains-network.png" alt="Gains Network" class="deck-logo-sm" /></span><span class="dex-copy"><strong>Gains Network</strong><small>gTrade / 金庫型の設計</small></span></li>
 </ul>
 
 </div>
@@ -348,6 +380,8 @@ Funding
 <li>運営 vault（例: HLP と JELLY事件）</li>
 </ul>
 
+<p class="muted-foot">ここは CLOB 型 Perp DEX の面白いところなので、次から 1 つずつ見る。</p>
+
 </div>
 
 <div class="glass-card">
@@ -373,9 +407,153 @@ Funding
 
 <!-- header: Perpetual -->
 
-## JELLY事件（小話）
+## CLOB: ADL
 
-運営側のプールや救済設計が注目された事例の一つ。細部は一次情報で確認する。
+<div class="risk-detail">
+
+<div class="risk-big">
+
+<span>勝っている側のポジションを、強制的に縮小する</span>
+
+</div>
+
+<div class="risk-grid">
+
+<div>
+
+<h4>いつ起きる？</h4>
+
+<p>清算・保険基金・バックストップだけでは、破産ポジションの損失を吸収しきれないとき。</p>
+
+</div>
+
+<div>
+
+<h4>誰が影響を受ける？</h4>
+
+<p>反対側にいて、未実現利益やレバレッジが大きい trader から優先的に選ばれやすい。</p>
+
+</div>
+
+</div>
+
+<div class="take-line">「儲かっているのに強制決済される」ので、UX と solvency のトレードオフが一番見える。</div>
+
+</div>
+
+---
+
+<!-- header: Perpetual -->
+
+## CLOB: Insurance Fund
+
+<div class="risk-detail">
+
+<div class="risk-big">
+
+<span>通常時に積み立てて、異常時の穴を埋める reserve</span>
+
+</div>
+
+<div class="risk-grid">
+
+<div>
+
+<h4>増えるとき</h4>
+
+<p>清算が破産価格より有利に処理できたときの余剰や、venue ごとの清算 fee などが積み上がる。</p>
+
+</div>
+
+<div>
+
+<h4>減るとき</h4>
+
+<p>価格が飛んで、清算後の残高だけでは損失を埋められないときに差額を吸収する。</p>
+
+</div>
+
+</div>
+
+<div class="take-line">Insurance Fund が十分なら、勝ち trader や全体ユーザーへ損失が漏れにくい。</div>
+
+</div>
+
+---
+
+<!-- header: Perpetual -->
+
+## CLOB: Socialized Loss
+
+<div class="risk-detail">
+
+<div class="risk-big">
+
+<span>どうしても残った損失を、protocol 参加者へ広く配分する設計</span>
+
+</div>
+
+<div class="risk-grid">
+
+<div>
+
+<h4>発想</h4>
+
+<p>破産 trader から回収できず、保険基金も足りないときに、損失を誰かに割り当てる必要がある。</p>
+
+</div>
+
+<div>
+
+<h4>論点</h4>
+
+<p>全員に薄く配るのか、利益が出ている trader に寄せるのかで、fairness と incentives が変わる。</p>
+
+</div>
+
+</div>
+
+<div class="take-line">最近の venue は、socialized loss を避けるために Insurance Fund や ADL を厚く設計する。</div>
+
+</div>
+
+---
+
+<!-- header: Perpetual -->
+
+## CLOB: 運営 vault / HLP
+
+<div class="risk-detail">
+
+<div class="risk-big">
+
+<span>流動性提供と清算バックストップを、vault が引き受ける</span>
+
+</div>
+
+<div class="risk-grid">
+
+<div>
+
+<h4>平時</h4>
+
+<p>order book に liquidity を出し、spread・maker rebate・清算 flow から収益を得る。</p>
+
+</div>
+
+<div>
+
+<h4>異常時</h4>
+
+<p>市場が薄い銘柄や急変時には、vault が toxic position を受ける側になりうる。</p>
+
+</div>
+
+</div>
+
+<div class="take-line">JELLY 事件のように、vault・oracle・上場銘柄の cap 設計が一気に論点化する。</div>
+
+</div>
 
 ---
 
@@ -572,10 +750,57 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 ## 参考資料
 
-- Jupiter User Docs: https://docs.jup.ag/
-- Jupiter Swap / Ultra: https://docs.jup.ag/user-docs/trade/swap
-- Jupiter Perps / JLP: https://docs.jup.ag/user-docs/trade/perps-and-jlp
-- Jupiter Mobile: https://docs.jup.ag/user-docs/manage/mobile
+<div class="resource-grid">
+
+<div class="resource-item">
+
+<h4>Jupiter User Docs</h4>
+
+<p>https://docs.jup.ag/</p>
+
+</div>
+
+<div class="resource-item">
+
+<h4>Swap / Ultra</h4>
+
+<p>https://docs.jup.ag/user-docs/trade/swap</p>
+
+</div>
+
+<div class="resource-item">
+
+<h4>Perps / JLP</h4>
+
+<p>https://docs.jup.ag/user-docs/trade/perps-and-jlp</p>
+
+</div>
+
+<div class="resource-item">
+
+<h4>Mobile</h4>
+
+<p>https://docs.jup.ag/user-docs/manage/mobile</p>
+
+</div>
+
+<div class="resource-item">
+
+<h4>Hyperliquid Liquidations / ADL</h4>
+
+<p>https://hyperliquid.gitbook.io/hyperliquid-docs/trading/liquidations</p>
+
+</div>
+
+<div class="resource-item">
+
+<h4>Hyperliquid Auto-deleveraging</h4>
+
+<p>https://hyperliquid.gitbook.io/hyperliquid-docs/trading/auto-deleveraging</p>
+
+</div>
+
+</div>
 
 ---
 
