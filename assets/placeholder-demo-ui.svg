@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#11151c"/>
+      <stop offset="100%" style="stop-color:#0b0e13"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#g)"/>
+  <rect x="48" y="48" width="864" height="444" rx="20" fill="rgba(17,21,28,0.95)" stroke="rgba(94,233,181,0.45)" stroke-width="2"/>
+  <text x="480" y="248" text-anchor="middle" fill="#c7f284" font-family="system-ui,sans-serif" font-size="32" font-weight="600">Demo UI</text>
+  <text x="480" y="292" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" font-size="22">ΧμόΉΫλΐό</text>
+  <text x="480" y="330" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="system-ui,sans-serif" font-size="16">Ή―κόσ·ηΓΘkξWÿH</text>
+</svg>

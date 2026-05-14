@@ -2,9 +2,22 @@
 
 ## Project Structure & Module Organization
 
-This repository manages Marp slides for a Jupiter presentation in the AUTON Program. Keep event goals and narrative requirements in `docs/PRD.md`, technical and presentation policy in `docs/TECH.md`, and placement rules in `docs/STRUCTURE.md`.
+This repository manages Marp slides for a Jupiter presentation in the AUTON Program. Keep event goals and narrative requirements in `docs/PRD.md`, technical and presentation policy in `docs/TECH.md`, and the authoritative placement rules in `docs/STRUCTURE.md`.
 
-The main deck is `SLIDE.md`. Store reusable images and screenshots in `assets/`, Marp theme CSS in `theme/jupiter.css`, and generated files such as `SLIDE.pdf` in `output/`. Do not add demo application code unless the PRD is updated to require it.
+Top-level layout:
+
+- `SLIDE.md`: Main Marp deck. Keep audience-facing narrative here.
+- `assets/`: Reusable slide images, screenshots, logos, and other visual sources.
+- `theme/jupiter.css`: Shared Marp theme. Prefer reusable theme classes over one-off inline styling.
+- `output/`: Generated render artifacts such as `output/SLIDE.pdf`.
+- `docs/`: Project context and policies. `PRD.md` owns event goals, `TECH.md` owns technical and presentation policy, and `STRUCTURE.md` owns placement rules.
+- `.agents/commands/`: Shared agent command prompts for recurring workflows.
+- `.agents/rules/`: Shared rules used through agent symlinks, including commit and test conventions.
+- `.agents/skills/`: Repo-local skills for Jupiter, Marp, and diagram work. Read the relevant `SKILL.md` before applying a skill.
+- `.agents/memory/`: Project-local agent memory. Check `lessons.md` before repeating prior decisions, and append active investigation notes to `todo.md` carefully instead of replacing unrelated content.
+- `.claude/`: Symlinked Claude-facing view of shared `.agents` commands, rules, and skills.
+
+Do not add demo application code unless the PRD is updated to require it.
 
 ## Build, Preview, and Development Commands
 
@@ -34,7 +47,7 @@ There is no TypeScript demo test suite for this scope. Validate changes by rende
 
 ## Commit & Pull Request Guidelines
 
-Recent history uses short imperative subjects, often with prefixes such as `docs:`, `fix:`, `refactor:`, `chore:`, and `feat:`. Keep commits focused on one deck or documentation concern.
+For commit message format, type ordering, scope guidance, and agent commit commands, follow `.claude/rules/commit-style.mdc`. Keep commits focused on one deck or documentation concern.
 
 PRs should summarize the slide/story change, mention updated assets or generated outputs, and list the render command used. Include screenshots or the regenerated `output/SLIDE.pdf` when layout, images, or theme styling changes.
 

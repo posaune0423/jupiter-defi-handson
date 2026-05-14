@@ -11,6 +11,54 @@
 
 ---
 
+## この講義全体の内容
+
+```
+01. An Introduction to DeFi and Staking
+✍️概要・About：ブロックチェーン、オンチェーンと伝統金融の違い、そしてステーキングの基本を理解し、DeFiの土台を固める。Understand the basics of blockchain, the differences between on-chain and traditional finance, and the fundamentals of staking to build a solid foundation in DeFi.
+🗣️スピーカー・Speakers：
+Next Finance Tech COO、Mikihiro Ono
+SMBC Nikko Securities, DeFi Technology Department GM, Taisuke Isono
+📅日程・Date：2026.5.11（Mon）
+⏰時間・Time：17:00 - 18:30 JST
+🔊言語・Language：JP
+
+02. Automated market Makers (AMM) and Lending
+✍️概要・About：AMMの仕組み、スリッページ、レンディング、DeFiの流動性と報酬構造がどう作られている。Learn about the mechanisms of AMMs, slippage, lending, and how liquidity and reward structures are created in DeFi.
+🗣️スピーカー・Speaker：
+Former Uniswap Labs Japan Lead for APAC growth, Daiki Endo
+DeFi Radio, Makito Kadowaki
+📅日程・Date：2026.5.12.（Tue）
+⏰時間・Time：18:00 - 19:30 JST
+🔊言語・Language：JP
+
+03. Smart Contracts and Risk Management
+✍️概要・About：スマートコントラクトがDeFiシステムをどのように形成しているか、システム全体のリスクについて探究し、リスクの監視および管理方法を学ぶ。Explore how smart contracts shape DeFi systems, system-wide risks, and learn about risk monitoring and management methods.
+🗣️スピーカー・Speaker：Nethermind, Head of Product APAC, Dharani Kishore
+📅日程・Date：2026.5.14（Thu）
+⏰時間・Time：18:00 - 19:15 JST
+🔊言語・Language：EN
+
+04. Perpetuals and Aggregators
+✍️概要・About：レバレッジ、永続的先物、オプション等のデリバティブ取引の構造、リスク・リターンのバランスを学ぶ。Study the structure of derivatives trading such as leverage, perpetual futures, and options, and learn about the balance between risk and return.
+🗣️スピーカー・Speaker：Jupiter
+📅日程・Date：2026.5.15（Fri）
+⏰時間・Time：18:00 - 19:30 JST
+🔊言語・Language：JP
+
+05. Agentic Payments
+✍️概要・About：x402決済技術の発展、エージェントたちがブロックチェーン上でどう動くか、これからの新しい可能性について学ぶ。Learn about the emergence of x402 payment rails, agents navigating blockchain, and the new possibilities that these technologies create.. 
+🗣️スピーカー・Speakers：
+Kite AI CTO and Co-founder, Scott Shi
+Kite AI AI Product Lead, Yusuke Muraoka
+📅日程・Date：2026.5.16.（Sat）
+⏰時間・Time：9:00 - 10:30 JST
+🔊言語・Language：EN
+```
+
+
+---
+
 ### Idea
 
 ```
