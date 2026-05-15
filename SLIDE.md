@@ -350,7 +350,9 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 # Part 2
 
-## Perpetual と、そのまわりの仕組み
+## Perpetual
+
+永久先物取引
 
 ---
 
@@ -360,7 +362,7 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 <div class="statement">
 
-**perp** = **Perpetual（永久）** ＋ **Future（先物）**
+**Perpetual（永久）** ＋ **Future（先物）**
 
 </div>
 
@@ -693,6 +695,7 @@ Funding
 </div>
 
 </div>
+
 ---
 
 <!-- header: Perpetual -->
@@ -764,6 +767,10 @@ Funding
 </div>
 
 </div>
+
+---
+
+## JELLY事件
 
 ---
 
