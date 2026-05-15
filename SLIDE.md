@@ -63,12 +63,124 @@ footer: " "
 
 ---
 
+## 軽くおさらい
+
+---
+
 <!-- _class: full-figure-slide -->
 <!-- header: Opening -->
 
 <div class="wide-image-frame full-figure-frame">
 
 <img src="assets/defi-tradfi-compare.png" alt="TradFi と DeFi のアーキテクチャ比較" />
+
+</div>
+
+---
+
+<!-- header: "" -->
+
+## AMM
+
+---
+
+<!-- header: AMM -->
+
+### AMM は「プールの数量」で価格を決める
+
+$$
+x \cdot y = k
+$$
+
+**x** は SOL の reserve、**y** は USDC の reserve。**k**は定数
+
+---
+
+<!-- header: AMM -->
+
+## スリッページは線形ではない
+
+$$
+y = \frac{k}{x}
+\qquad
+-\frac{dy}{dx} = \frac{k}{x^2}
+$$
+
+<p class="lede-line">微分で出る値は「その時点の交換レート」。この値は <strong>x</strong> によって変わる。</p>
+
+<div class="split-route-grid">
+
+<div class="amm-pool-card">
+
+<h4>最初</h4>
+
+$$
+x=1{,}000
+\qquad
+-\frac{dy}{dx}=100
+$$
+
+<p><strong>1 SOL ≒ 100 USDC</strong></p>
+
+</div>
+
+<div class="amm-pool-card accent">
+
+<h4>100 SOL 入った後</h4>
+
+$$
+x=1{,}100
+\qquad
+-\frac{dy}{dx}\simeq82.6
+$$
+
+<p><strong>1 SOL ≒ 82.6 USDC</strong></p>
+
+</div>
+
+</div>
+
+---
+
+<!-- header: AMM -->
+
+## プールごとに「曲線の深さ」が違う
+
+<div class="route-why-grid">
+
+<div class="amm-pool-card">
+
+<h4>浅いプール</h4>
+
+$$
+x=1{,}000
+$$
+
+$$
+\frac{\Delta x}{x}=\frac{100}{1{,}000}=10\%
+$$
+
+<p>100 SOL の注文が、片側 reserve の <strong>10%</strong>。</p>
+
+</div>
+
+<div class="route-arrow-large">→</div>
+
+<div class="amm-pool-card accent">
+
+<h4>深いプール</h4>
+
+$$
+x=10{,}000
+$$
+
+$$
+\frac{\Delta x}{x}=\frac{100}{10{,}000}=1\%
+$$
+
+<p>同じ注文でも、片側 reserve の <strong>1%</strong>。</p>
+
+</div>
 
 </div>
 
@@ -152,9 +264,13 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 <div class="route-pre-wrap">
 
-<pre><code>SOL -&gt; USDC</code></pre>
+```
+SOL -> USDC
+```
 
 </div>
+
+<p class="sub-text">1つのプールで完結する一番シンプルな経路。</p>
 
 ---
 
@@ -164,45 +280,15 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 <div class="route-pre-wrap">
 
-<pre><code>SOL -&gt; USDT -&gt; USDC
-SOL -&gt; mSOL -&gt; USDC
-SOL -&gt; JupSOL -&gt; USDC</code></pre>
+```
+SOL -> USDT -> USDC
+SOL -> mSOL -> USDC
+SOL -> JupSOL -> USDC
+```
 
 </div>
 
----
-
-<!-- header: Aggregator -->
-
-## なぜ Multi-hop が起きる？
-
-<div class="route-why-grid">
-
-<div class="amm-pool-card">
-
-<h4>Direct</h4>
-
-<p>SOL/USDC のプールが薄いと、大口注文で価格が大きくずれる。</p>
-
-<div class="liquidity-meter low"><span></span></div>
-
-</div>
-
-<div class="route-arrow-large">→</div>
-
-<div class="amm-pool-card accent">
-
-<h4>Multi-hop</h4>
-
-<p>SOL/USDT と USDT/USDC の方が厚ければ、経由した方が受け取り額が良いことがある。</p>
-
-<div class="liquidity-meter high"><span></span></div>
-
-</div>
-
-</div>
-
-<div class="take-line">Aggregator は「最短経路」ではなく、スリッページ込みで一番良い実行経路を探す。</div>
+<p class="sub-text">直接のプールより、中間トークンを経由したほうが実効レートが良い場合がある。</p>
 
 ---
 
@@ -210,61 +296,41 @@ SOL -&gt; JupSOL -&gt; USDC</code></pre>
 
 ## C. Split Route
 
-<div class="logo-chip-row mb-3">
-
-<div class="logo-chip"><img src="assets/logos/jupiter.svg" alt="Jupiter" /><span>Jupiter</span></div>
-
-<div class="logo-chip"><img src="assets/logos/raydium.svg" alt="Raydium" /><span>Raydium</span></div>
-
-<div class="logo-chip"><img src="assets/logos/meteora.png" alt="Meteora" /><span>Meteora</span></div>
-
-<div class="logo-chip"><img src="assets/logos/orca.svg" alt="Orca" /><span>Orca</span></div>
-
-</div>
-
 <div class="route-pre-wrap">
 
-<pre><code>SOL -&gt; USDC  40% via Jupiter
-SOL -&gt; USDC  35% via Raydium
-SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
+```
+SOL -> USDC  40% via Jupiter
+SOL -> USDC  35% via Raydium
+SOL -> USDT -> USDC 25% via Meteora + Orca
+```
 
 </div>
+
+<p class="sub-text">大きい注文を複数の深い場所に分けると、1つのプールを深く押し込まずに済む。</p>
 
 ---
 
 <!-- header: Aggregator -->
 
-## なぜ Split Route が起きる？
+## なぜ Multi-hop / Split Route が起きるのか
 
 <div class="split-route-grid">
 
 <div class="amm-pool-card">
 
-<h4>1つのプールに全量</h4>
-
-<p>大口注文を一気に流すと、そのプールの価格カーブを深く進んでしまう。</p>
+<h4>Multi-hop</h4>
+<p>直接プールが浅いなら、中間トークン経由の複数プールの方が浅い範囲だけを使えることがある。</p>
 
 </div>
 
 <div class="amm-pool-card accent">
 
-<h4>複数プールへ分割</h4>
-
-<p>Raydium・Meteora・Orca などに分けると、各プールの価格インパクトを浅くできる。</p>
-
-</div>
-
-<div class="split-bars">
-
-<span style="--w: 40%">40% Jupiter</span>
-<span style="--w: 35%">35% Raydium</span>
-<span style="--w: 25%">25% Meteora + Orca</span>
+<h4>Split</h4>
+<p>大口注文を複数プールへ分けると、1つの曲線を深く押し込まずに済む。</p>
 
 </div>
 
 </div>
-
-<div class="take-line">大口取引ほど、分割した方が平均約定価格が良くなるケースが増える。</div>
 
 ---
 
@@ -565,7 +631,7 @@ Funding
 
 <div class="risk-big">
 
-<span>通常時に積み立てて、異常時の穴を埋める reserve</span>
+<span>破産損失をまず受け止めるための reserve</span>
 
 </div>
 
@@ -573,17 +639,17 @@ Funding
 
 <div>
 
-<h4>増えるとき</h4>
+<h4>何が起きる？</h4>
 
-<p>清算が破産価格より有利に処理できたときの余剰や、venue ごとの清算 fee などが積み上がる。</p>
+<p>清算後に口座がマイナスになったとき、不足分を fund が補填し、勝ち側への支払いを守る。</p>
 
 </div>
 
 <div>
 
-<h4>減るとき</h4>
+<h4>自分にどう関係？</h4>
 
-<p>価格が飛んで、清算後の残高だけでは損失を埋められないときに差額を吸収する。</p>
+<p>fund が厚いほど ADL や損失按分に進みにくい。ただし、自分の清算損を返してくれるものではない。</p>
 
 </div>
 
@@ -600,7 +666,7 @@ Funding
 
 <div class="risk-big">
 
-<span>勝っている側のポジションを、強制的に縮小する</span>
+<span>勝ちポジションの一部を閉じて、損失の穴を埋める</span>
 
 </div>
 
@@ -608,24 +674,23 @@ Funding
 
 <div>
 
-<h4>いつ起きる？</h4>
+<h4>何が起きる？</h4>
 
-<p>清算・保険基金・バックストップだけでは、破産ポジションの損失を吸収しきれないとき。</p>
+<p>破産ポジションを市場で閉じきれず、保険基金などでも不足分を吸収できないとき。</p>
 
 </div>
 
 <div>
 
-<h4>誰が影響を受ける？</h4>
+<h4>自分にどう関係？</h4>
 
-<p>反対側にいて、未実現利益やレバレッジが大きい trader から優先的に選ばれやすい。</p>
-
-</div>
+<p>勝っていても、反対側で利益とレバレッジが大きいと、強制的に縮小・決済されることがある。</p>
 
 </div>
 
 </div>
 
+</div>
 ---
 
 <!-- header: Perpetual -->
@@ -636,7 +701,7 @@ Funding
 
 <div class="risk-big">
 
-<span>どうしても残った損失を、protocol 参加者へ広く配分する設計</span>
+<span>最後に残った損失を、ルールに従って参加者へ配る</span>
 
 </div>
 
@@ -644,17 +709,17 @@ Funding
 
 <div>
 
-<h4>発想</h4>
+<h4>何が起きる？</h4>
 
-<p>破産 trader から回収できず、保険基金も足りないときに、損失を誰かに割り当てる必要がある。</p>
+<p>破産損失を吸収しきれないと、venue のルールに従って損失を参加者へ配分する。</p>
 
 </div>
 
 <div>
 
-<h4>論点</h4>
+<h4>自分にどう関係？</h4>
 
-<p>全員に薄く配るのか、利益が出ている trader に寄せるのかで、fairness と incentives が変わる。</p>
+<p>勝っている側の PnL が削られる設計もある。発生条件と対象者は venue ごとに確認する。</p>
 
 </div>
 
