@@ -1,10 +1,7 @@
-
 ちょっとおさらい
 
 - AMM
 - 既存金融とDefiの違い
-
-
 
 ---
 
@@ -18,39 +15,39 @@ Blockchain上にはDEXと呼ばれる取引所が沢山存在している。
 
 それらを1つのInterfaceで呼べるようにしたもので、さらに最適な交換レートのrouteを探索してくれる
 
-
 - Jupiter
 - 1inch
 
 ---
 
-一般のAMMだけじゃなくprop AMMやRFQ等のmarket makerからのquoteも受け付けてbest rateをuserに提示る
+一般のAMMだけじゃなくprop AMMやRFQ等のmarket makerからのquoteも受け付けてbest
+rateをuserに提示る
 
 既存金融とかだと [[立会外取引]]みたいなもの
 
 ---
 
 A. Direct Route
+
 ```
 SOL -> USDC
 ```
 
-
 B. Multi-hop Route
+
 ```
 SOL -> USDT -> USDC
 SOL -> mSOL -> USDC
 SOL -> JupSOL -> USDC
 ```
 
-
 C. Split Route
+
 ```
 SOL -> USDC  40% via Jupiter
 SOL -> USDC  35% via Raydium
 SOL -> USDT -> USDC 25% via Meteora + Orca
 ```
-
 
 ---
 
@@ -98,18 +95,17 @@ Jupiter Swapとかを見てみる
 その上で現物価格との乖離は**Funding Rate**という概念で防ぐ
 
 ---
+
 ### Funding Rate
 
-Perp Price > Spot Price
-Long => Short
-Perp Price < Spot Price
-Short Long
+Perp Price > Spot Price Long => Short Perp Price < Spot Price Short Long
 
 ---
 
 ### Liqudation
 
-清算、FXなどと違って追証(おいしょう)のようなものはなくEquity(口座残高)がMaintenance Marginを下回っていたら強制清算
+清算、FXなどと違って追証(おいしょう)のようなものはなくEquity(口座残高)がMaintenance
+Marginを下回っていたら強制清算
 
 取引所にもよるが
 
@@ -167,7 +163,25 @@ Riskの転嫁先
 
 ---
 
+ADL
+
+---
+
+Insurance Fund
+
+運営母体やCommunityがfund出資したり、userのposition清算時にペナルティとして一部をFundが吸収する
+
+---
+
+運営Vault
+
+---
+
 JELLY事件 小話
+
+---
+
+Socialized Loss (損失社会化)
 
 ---
 

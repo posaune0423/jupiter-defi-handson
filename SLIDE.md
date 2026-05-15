@@ -373,7 +373,8 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 <div class="note-banner">
 
-Funding の定義・指数・支払い周期はプロダクトごとに違うので、体験する前にドキュメントで確認するのが安全。
+Funding
+の定義・指数・支払い周期はプロダクトごとに違うので、体験する前にドキュメントで確認するのが安全。
 
 </div>
 
@@ -406,7 +407,9 @@ Funding の定義・指数・支払い周期はプロダクトごとに違うの
 
 <div class="spotlight">
 
-例: <strong>Equity &lt; Maintenance Margin</strong> かつ <strong>Position PnL &lt; 0</strong> のような状況で強制清算に入りうる、という整理がある（定義はプロダクトごとに異なる）。
+例: <strong>Equity &lt; Maintenance Margin</strong> かつ <strong>Position PnL
+&lt; 0</strong>
+のような状況で強制清算に入りうる、という整理がある（定義はプロダクトごとに異なる）。
 
 </div>
 
@@ -586,15 +589,13 @@ Funding の定義・指数・支払い周期はプロダクトごとに違うの
 
 </div>
 
-<div class="take-line">「儲かっているのに強制決済される」ので、UX と solvency のトレードオフが一番見える。</div>
-
 </div>
 
 ---
 
 <!-- header: Perpetual -->
 
-## CLOB: Insurance Fund
+## Insurance Fund
 
 <div class="risk-detail">
 
@@ -624,15 +625,13 @@ Funding の定義・指数・支払い周期はプロダクトごとに違うの
 
 </div>
 
-<div class="take-line">Insurance Fund が十分なら、勝ち trader や全体ユーザーへ損失が漏れにくい。</div>
-
 </div>
 
 ---
 
 <!-- header: Perpetual -->
 
-## CLOB: Socialized Loss
+## Socialized Loss
 
 <div class="risk-detail">
 
@@ -662,15 +661,13 @@ Funding の定義・指数・支払い周期はプロダクトごとに違うの
 
 </div>
 
-<div class="take-line">最近の venue は、socialized loss を避けるために Insurance Fund や ADL を厚く設計する。</div>
-
 </div>
 
 ---
 
 <!-- header: Perpetual -->
 
-## CLOB: 運営 vault / HLP
+## 運営 vault / HLP
 
 <div class="risk-detail">
 
@@ -699,8 +696,6 @@ Funding の定義・指数・支払い周期はプロダクトごとに違うの
 </div>
 
 </div>
-
-<div class="take-line">JELLY 事件のように、vault・oracle・上場銘柄の cap 設計が一気に論点化する。</div>
 
 </div>
 
