@@ -341,7 +341,7 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 # Demo
 
-## 画面共有で Jupiter・bulk trade などを確認
+## Jupiterを触ってみる
 
 ---
 
@@ -790,41 +790,7 @@ Funding
 
 # Demo
 
-## 画面共有で Jupiter・bulk trade などを確認
-
----
-
-<!-- header: Closing -->
-
-## 今日のまとめ
-
-<div class="col-three">
-
-<div>
-
-<h4>Aggregator</h4>
-
-<p>SOR に近い発想で、複数 DEX を一つの I/F で束ねる。<strong>Direct / Multi-hop / Split</strong> で「最適」が変わる。</p>
-
-</div>
-
-<div>
-
-<h4>Perps</h4>
-
-<p>先物の発想 ＋ <strong>Funding・清算・Oracle</strong>。DEX 型（CLOB / AMM）ごとに設計が違う。</p>
-
-</div>
-
-<div>
-
-<h4>リスク</h4>
-
-<p>DeFi は個人追徴が弱い前提。損失は <strong>ADL・保険基金・LP・手数料</strong> など Protocol 内で精算される。</p>
-
-</div>
-
-</div>
+## Jupiter Perp・bulk tradeを触ってみる
 
 ---
 
