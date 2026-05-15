@@ -262,11 +262,9 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 ## A. Direct Route
 
-<div class="route-pre-wrap">
+<div class="route-image route-image-direct">
 
-```
-SOL -> USDC
-```
+<img src="assets/direct-route.png" alt="Direct route: SOL から USDC への単一プール経由" />
 
 </div>
 
@@ -278,13 +276,9 @@ SOL -> USDC
 
 ## B. Multi-hop Route
 
-<div class="route-pre-wrap">
+<div class="route-image">
 
-```
-SOL -> USDT -> USDC
-SOL -> mSOL -> USDC
-SOL -> JupSOL -> USDC
-```
+<img src="assets/multihop-route.png" alt="Multi-hop route: SOL → 中間トークン → USDC の複数経路" />
 
 </div>
 
@@ -296,13 +290,9 @@ SOL -> JupSOL -> USDC
 
 ## C. Split Route
 
-<div class="route-pre-wrap">
+<div class="route-image route-image-split">
 
-```
-SOL -> USDC  40% via Jupiter
-SOL -> USDC  35% via Raydium
-SOL -> USDT -> USDC 25% via Meteora + Orca
-```
+<img src="assets/split-route.png" alt="Split route: 大口注文を複数 DEX に分割する経路" />
 
 </div>
 
@@ -314,19 +304,31 @@ SOL -> USDT -> USDC 25% via Meteora + Orca
 
 ## なぜ Multi-hop / Split Route が起きるのか
 
-<div class="split-route-grid">
+<p class="lede-line">大口注文ほど、AMM の <strong>価格カーブを深く進んで</strong> slippage が膨らむ。<br />これを抑えるルーティングが <strong>2 種類</strong> ある。</p>
 
-<div class="amm-pool-card">
+<div class="compare-rail">
+
+<div class="rail rail-l">
 
 <h4>Multi-hop</h4>
-<p>直接プールが浅いなら、中間トークン経由の複数プールの方が浅い範囲だけを使えることがある。</p>
+
+<p><strong>別の通貨のプールを経由</strong>して、より深い／レートの良い経路を引く。</p>
+
+<p class="rail-example">例: SOL/USDC が浅い → <code>SOL → USDT → USDC</code> で深い 2 段を繋ぐ</p>
+
+<p class="rail-lever">→ <strong>どの曲線を使うか</strong> の最適化</p>
 
 </div>
 
-<div class="amm-pool-card accent">
+<div class="rail rail-r">
 
-<h4>Split</h4>
-<p>大口注文を複数プールへ分けると、1つの曲線を深く押し込まずに済む。</p>
+<h4>Split Route</h4>
+
+<p><strong>同じペアを複数の AMM に分割</strong>して、各プールの price impact を浅く抑える。</p>
+
+<p class="rail-example">例: 100 SOL を 1 プール集中 (Δx/x = 10%) → 4 プールに分割 (各 2.5%)</p>
+
+<p class="rail-lever">→ <strong>曲線をどれだけ進むか</strong> の最適化</p>
 
 </div>
 

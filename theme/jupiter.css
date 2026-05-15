@@ -838,6 +838,36 @@ ul.dex-list li:last-child {
   margin: 0 !important;
 }
 
+/* Route diagram images (A. Direct / B. Multi-hop / C. Split) */
+.route-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.1rem auto 0.65rem;
+  width: 100%;
+}
+
+.route-image img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 70%;
+  max-height: 17.5rem;
+  border-radius: 18px;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.36);
+}
+
+/* Direct route is wide-and-short; constrain by height instead so it doesn't dwarf the slide */
+.route-image.route-image-direct img {
+  max-width: 56%;
+  max-height: 13.5rem;
+}
+
+.route-image.route-image-split img {
+  max-width: 72%;
+  max-height: 19rem;
+}
+
 /* Vertical balance: title + centered block (Jupiter Swap など) */
 section.slide-content-center {
   display: flex;
@@ -973,6 +1003,35 @@ section.thank-you-slide .text-center {
 }
 
 .compare-rail .rail-r h4 {
+  color: var(--jupiter-emerald);
+}
+
+.compare-rail .rail .rail-example {
+  margin: 0.55rem 0 0;
+  padding: 0.32rem 0.55rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.92em;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+}
+
+.compare-rail .rail .rail-example code {
+  font-size: 0.95em;
+}
+
+.compare-rail .rail .rail-lever {
+  margin: 0.7rem 0 0;
+  font-size: 0.96em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.compare-rail .rail-l .rail-lever {
+  color: var(--jupiter-sky);
+}
+
+.compare-rail .rail-r .rail-lever {
   color: var(--jupiter-emerald);
 }
 
