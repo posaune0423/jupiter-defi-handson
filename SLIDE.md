@@ -98,16 +98,17 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 ---
 
-<!-- _class: logo-focus -->
 <!-- header: Aggregator -->
 
 ## 代表例
 
-<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="brand-row">
 
-<div class="glass-card logo-tile flex flex-col items-center text-center">
+<div class="brand-item">
 
-<img src="assets/logos/jupiter.svg" alt="Jupiter" class="deck-logo" />
+<img src="assets/logos/jupiter.svg" alt="Jupiter" class="brand-logo" />
+
+<div class="brand-meta">
 
 <h4>Jupiter</h4>
 
@@ -115,13 +116,19 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 </div>
 
-<div class="glass-card logo-tile flex flex-col items-center text-center">
+</div>
 
-<img src="assets/logos/1inch.svg" alt="1inch" class="deck-logo" />
+<div class="brand-item">
+
+<img src="assets/logos/1inch.svg" alt="1inch" class="brand-logo" />
+
+<div class="brand-meta">
 
 <h4>1inch</h4>
 
 <p>Ethereum 側でも名前が挙がりやすい一例。</p>
+
+</div>
 
 </div>
 
@@ -133,14 +140,33 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 ## AMM 以外も束ねる
 
-一般の AMM だけでなく、**prop AMM** や **RFQ**
-など、市場メーカーからの見積もりも束ねて、ユーザーに実効レートの良い選択肢を出す。
+<p class="lede-line">一般の AMM だけでなく、<strong>prop AMM</strong> や <strong>RFQ</strong> といった市場メーカーの見積もりも束ねて、ユーザーに実効レートの良い選択肢を出す。</p>
 
-<div class="glass-card mt-6">
+<p class="sub-text">既存金融でいえば、取引所の場内だけでなく <strong>立会外取引</strong> に近い流動性も混ざり得る、という理解。</p>
 
-<h4>既存金融との対比</h4>
+---
 
-<p>取引所の場内だけでなく、**立会外取引**に近い流動性も混ざり得る、という理解の仕方がある。</p>
+<!-- header: Aggregator -->
+
+## A. Direct Route
+
+<div class="route-pre-wrap">
+
+<pre><code>SOL -&gt; USDC</code></pre>
+
+</div>
+
+---
+
+<!-- header: Aggregator -->
+
+## B. Multi-hop Route
+
+<div class="route-pre-wrap">
+
+<pre><code>SOL -&gt; USDT -&gt; USDC
+SOL -&gt; mSOL -&gt; USDC
+SOL -&gt; JupSOL -&gt; USDC</code></pre>
 
 </div>
 
@@ -182,6 +208,32 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 <!-- header: Aggregator -->
 
+## C. Split Route
+
+<div class="logo-chip-row mb-3">
+
+<div class="logo-chip"><img src="assets/logos/jupiter.svg" alt="Jupiter" /><span>Jupiter</span></div>
+
+<div class="logo-chip"><img src="assets/logos/raydium.svg" alt="Raydium" /><span>Raydium</span></div>
+
+<div class="logo-chip"><img src="assets/logos/meteora.png" alt="Meteora" /><span>Meteora</span></div>
+
+<div class="logo-chip"><img src="assets/logos/orca.svg" alt="Orca" /><span>Orca</span></div>
+
+</div>
+
+<div class="route-pre-wrap">
+
+<pre><code>SOL -&gt; USDC  40% via Jupiter
+SOL -&gt; USDC  35% via Raydium
+SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
+
+</div>
+
+---
+
+<!-- header: Aggregator -->
+
 ## なぜ Split Route が起きる？
 
 <div class="split-route-grid">
@@ -216,59 +268,6 @@ Blockchain 上には DEX と呼ばれる取引所が沢山存在している。
 
 ---
 
-<!-- header: Aggregator -->
-
-## A. Direct Route
-
-<div class="route-pre-wrap">
-
-<pre><code>SOL -&gt; USDC</code></pre>
-
-</div>
-
----
-
-<!-- header: Aggregator -->
-
-## B. Multi-hop Route
-
-<div class="route-pre-wrap">
-
-<pre><code>SOL -&gt; USDT -&gt; USDC
-SOL -&gt; mSOL -&gt; USDC
-SOL -&gt; JupSOL -&gt; USDC</code></pre>
-
-</div>
-
----
-
-<!-- _class: logo-focus -->
-<!-- header: Aggregator -->
-
-## C. Split Route
-
-<div class="deck-logo-row mb-3">
-
-<div class="deck-logo-box"><img src="assets/logos/jupiter.svg" alt="Jupiter" class="deck-logo-sm" /><span>Jupiter</span></div>
-
-<div class="deck-logo-box"><img src="assets/logos/raydium.svg" alt="Raydium" class="deck-logo-sm" /><span>Raydium</span></div>
-
-<div class="deck-logo-box"><img src="assets/logos/meteora.png" alt="Meteora" class="deck-logo-sm" /><span>Meteora</span></div>
-
-<div class="deck-logo-box"><img src="assets/logos/orca.svg" alt="Orca" class="deck-logo-sm" /><span>Orca</span></div>
-
-</div>
-
-<div class="route-pre-wrap">
-
-<pre><code>SOL -&gt; USDC  40% via Jupiter
-SOL -&gt; USDC  35% via Raydium
-SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
-
-</div>
-
----
-
 <!-- header: "" -->
 <!-- _class: section-divider -->
 
@@ -291,30 +290,13 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 ## Perpetual とは？
 
-まずそもそも **perp** とは？ → **「永久先物」**
+<div class="statement">
 
-<div class="grid grid-cols-2 gap-6 mt-8">
-
-<div class="glass-card">
-
-<h4>言葉の分解</h4>
-
-<ul>
-<li><strong>永久（Perpetual）</strong></li>
-<li><strong>先物（Future）</strong></li>
-</ul>
+**perp** = **Perpetual（永久）** ＋ **Future（先物）**
 
 </div>
 
-<div class="glass-card">
-
-<h4>この資料での意味</h4>
-
-<p>満期のない先物契約イメージで、証拠金・Funding・清算などで状態が調整される世界。</p>
-
-</div>
-
-</div>
+<p class="sub-text">満期のない先物契約。<strong>証拠金・Funding・清算</strong>でポジションの状態が継続的に調整される。</p>
 
 ---
 
@@ -322,31 +304,31 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 ## 「先物取引」とは？
 
-将来の決まった日時・条件で、あらかじめ決めた価格で売買する約束を、**いまの時点で**取り交わす取引。
+<p class="lede-line">将来の決まった日時・条件で、あらかじめ決めた価格で売買する約束を、<strong>いまの時点で</strong>取り交わす取引。</p>
 
-<div class="grid grid-cols-3 gap-5 mt-8">
+<div class="col-three">
 
-<div class="glass-card">
+<div>
 
 <h4>何をするか</h4>
 
-<p>「将来、この価格で買う／売る」という<strong>契約</strong>を売買する。多くの市場では最終的に現物受け取りではなく、価格差の<strong>精算</strong>で決済されることが一般的。</p>
+<p>「将来この価格で買う／売る」という<strong>契約</strong>を売買する。多くの市場で最終的には現物受け取りではなく、価格差の<strong>精算</strong>で決済される。</p>
 
 </div>
 
-<div class="glass-card">
+<div>
 
 <h4>なぜあるか</h4>
 
-<p>農産物やエネルギーなどで生まれた「将来の価格が読めない」リスクを、先物で<strong>ヘッジ</strong>するため。投資・投機で変動に乗る用途もある。</p>
+<p>農産物やエネルギーで生まれた「将来価格が読めない」リスクを<strong>ヘッジ</strong>するため。投資・投機で変動に乗る用途もある。</p>
 
 </div>
 
-<div class="glass-card">
+<div>
 
 <h4>レバレッジ</h4>
 
-<p>証拠金の一部で大きなノーションに張れることが多い。その分利益も損失も拡大し、証拠金維持率を下回ると<strong>ロスカット</strong>等で強制決済されうる。</p>
+<p>証拠金の一部で大きなノーションに張れる。その分損益が拡大し、維持率を下回ると<strong>ロスカット</strong>で強制決済されうる。</p>
 
 </div>
 
@@ -358,13 +340,9 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 ## 小話（歴史）
 
-<blockquote>
+<p class="lede-line">米国の先物市場は <strong>1840年代のシカゴ</strong> ではじまった。</p>
 
-<p>米国の先物市場は1840年代にシカゴではじまりました。</p>
-
-<p>シカゴは米国中西部の穀倉地帯の中央に位置していたことと、五大湖や鉄道を通じて穀物を集積・配送する交通の要所であったため、シカゴが先物取引の中心になったとされています。</p>
-
-</blockquote>
+<p class="narrative">シカゴは中西部の穀倉地帯の中央にあり、五大湖と鉄道で穀物を集積・配送する<strong>交通の要所</strong>だった。だから先物取引の中心地として発展した、とされている。</p>
 
 ---
 
@@ -377,13 +355,9 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 <div class="history-person-copy">
 
-<p class="history-lede">日本も米相場で先物取引が盛んだった。</p>
+<p class="history-lede">日本でも江戸時代から、<strong>米相場</strong>で先物取引が盛んだった。</p>
 
-<blockquote>
-
-<p>江戸時代に本間宗久という相場師がロウソク足を発明したという説もある。</p>
-
-</blockquote>
+<p class="narrative">相場師 <strong>本間宗久</strong> が現代も使われる <strong>ロウソク足</strong> を発明したという説もある。</p>
 
 </div>
 
@@ -395,15 +369,11 @@ SOL -&gt; USDT -&gt; USDC 25% via Meteora + Orca</code></pre>
 
 ## レバレッジ・信用取引と Funding
 
-要はレバレッジや信用取引ができる。
-
-その上で、**現物価格との乖離**は **Funding Rate**
-という概念で調整される、という整理。
+<p class="lede-line">Perp はレバレッジ・信用取引が可能。<strong>現物価格との乖離</strong>は <strong>Funding Rate</strong> で調整される。</p>
 
 <div class="note-banner">
 
-Funding
-の定義・指数・支払い周期はプロダクトごとに違うので、体験する前にドキュメントで確認するのが安全です。
+Funding の定義・指数・支払い周期はプロダクトごとに違うので、体験する前にドキュメントで確認するのが安全。
 
 </div>
 
@@ -424,16 +394,9 @@ Funding
 
 ## 清算（Liquidation）
 
-清算は、FXなどと違って追証（おいしょう）のような延命が常に効くとは限らず、**Equity（口座残高）**
-が **Maintenance Margin** を下回ると強制清算に入りうる。
+<p class="lede-line">FX のように追証で延命できるとは限らない。<br /><strong>Equity（口座残高） &lt; Maintenance Margin</strong> で強制清算に入りうる。</p>
 
-<div class="glass-card mt-6">
-
-<h4>取引所・プロトコルによる</h4>
-
-<p>条件式や優先順位は取引所・プロトコルごとに異なる。Equity が維持証拠金を下回ると強制決済に入りうる、というのが共通の注意点。</p>
-
-</div>
+<p class="sub-text">条件式や優先順位は取引所・プロトコルごとに異なる。共通する注意点は「<strong>維持証拠金を下回ると強制決済される</strong>」ということ。</p>
 
 ---
 
@@ -441,39 +404,25 @@ Funding
 
 ## 清算条件（実装は取引所依存）
 
-<div class="glass-card mt-6">
+<div class="spotlight">
 
-<p>例として、<strong>Equity &lt; Maintenance Margin</strong> かつ <strong>Position PnL &lt; 0</strong> のような状況で強制清算に入りうる、という整理がある（定義はプロダクトごとに異なる）。</p>
+例: <strong>Equity &lt; Maintenance Margin</strong> かつ <strong>Position PnL &lt; 0</strong> のような状況で強制清算に入りうる、という整理がある（定義はプロダクトごとに異なる）。
 
 </div>
 
 ---
 
-<!-- _class: logo-focus -->
 <!-- header: Perpetual -->
 
 ## Oracle とは？
 
-価格などの、Blockchain上だけでは計算できない**外部データ**を、Smart Contract
-などを通してオンチェーンに載せる**橋渡し**的なシステム。
+<p class="lede-line">Blockchain 上だけでは計算できない<strong>外部データ</strong>（価格など）を、Smart Contract を介してオンチェーンに載せる <strong>橋渡し</strong> のシステム。</p>
 
-<div class="oracle-logo-strip">
+<div class="logo-chip-row">
 
-<div class="deck-logo-box compact-logo-box">
+<div class="logo-chip"><img src="assets/logos/chainlink.svg" alt="Chainlink" /><span>Chainlink</span></div>
 
-<img src="assets/logos/chainlink.svg" alt="Chainlink" class="deck-logo" />
-
-<span>Chainlink</span>
-
-</div>
-
-<div class="deck-logo-box compact-logo-box">
-
-<img src="assets/logos/pyth.svg" alt="Pyth" class="deck-logo" />
-
-<span>Pyth</span>
-
-</div>
+<div class="logo-chip"><img src="assets/logos/pyth.svg" alt="Pyth" /><span>Pyth</span></div>
 
 </div>
 
@@ -481,79 +430,68 @@ Funding
 
 <!-- header: Perpetual -->
 
-## Oracle と Perp DEX
+## Oracle の役割
 
-<div class="oracle-flow">
+<div class="oracle-bridge">
 
-<div class="flow-node">
-
-<h4>Spot Market</h4>
-
-<p>現物市場の価格</p>
-
+<div class="oracle-bridge-side">
+<span class="bridge-kicker">Off-chain</span>
+<h4>外部の価格データ</h4>
+<p>CEX / DEX / 市場価格</p>
 </div>
 
-<div class="flow-arrow">→</div>
+<div class="bridge-arrow">→</div>
 
-<div class="flow-node oracle-node">
-
-<h4>Oracle</h4>
-
-<p>オンチェーンで参照できる価格へ変換</p>
-
+<div class="oracle-bridge-core">
+<span class="bridge-kicker">Oracle</span>
+<div class="oracle-provider-row">
+<img src="assets/logos/pyth.svg" alt="Pyth" />
+<img src="assets/logos/chainlink.svg" alt="Chainlink" />
+</div>
+<p>検証された価格フィード</p>
 </div>
 
-<div class="flow-arrow">→</div>
+<div class="bridge-arrow">→</div>
 
-<div class="flow-node">
-
-<h4>Perp DEX</h4>
-
-<p>Funding Rate や清算判定の入力に使う</p>
-
+<div class="oracle-bridge-side">
+<span class="bridge-kicker">On-chain</span>
+<h4>Smart Contract</h4>
+<p>Perp DEX / Funding / 清算</p>
 </div>
-
-</div>
-
-<div class="spotlight">
-
-Perp DEX は Oracle を通して現物価格を知り、それに応じて FR
-を変化させ、価格の乖離を是正する。
 
 </div>
 
 ---
 
-<!-- _class: logo-focus -->
 <!-- header: Perpetual -->
 
 ## Perp DEX の種類
 
-<div class="dex-card-grid">
+<div class="dex-columns">
 
-<div class="glass-card dex-type-card">
+<section class="dex-col">
 
-<h4>CLOB 型</h4>
+<h4 class="dex-col-head">CLOB 型</h4>
 
-<ul class="dex-list">
-<li><span class="dex-logo-frame"><img src="assets/logos/hyperliquid.svg" alt="Hyperliquid" class="deck-logo-sm" /></span><span class="dex-copy"><strong>Hyperliquid</strong><small>高性能なオーダーブック型</small></span></li>
-<li><span class="dex-logo-frame"><img src="assets/logos/bulk-trade.svg" alt="BULK" class="deck-logo-sm deck-logo-wordmark" /></span><span class="dex-copy"><strong>BULK</strong><small>Solana 上の高速 Perp DEX</small></span></li>
-<li><span class="dex-logo-frame"><img src="assets/logos/dydx.png" alt="dYdX" class="deck-logo-sm" /></span><span class="dex-copy"><strong>dYdX</strong><small>app-chain 系の order book</small></span></li>
+<ul class="dex-flat-list">
+<li><img src="assets/logos/hyperliquid.svg" alt="Hyperliquid" /><div><strong>Hyperliquid</strong><small>高性能なオーダーブック型</small></div></li>
+<li><img src="assets/logos/bulk-trade.svg" alt="BULK" class="logo-wordmark" /><div><strong>BULK</strong><small>Solana 上の高速 Perp DEX</small></div></li>
+<li><img src="assets/logos/dydx.png" alt="dYdX" /><div><strong>dYdX</strong><small>app-chain 系の order book</small></div></li>
 </ul>
 
-</div>
+</section>
 
-<div class="glass-card dex-type-card">
+<section class="dex-col">
 
-<h4>AMM 型（LP がカウンターパーティ）</h4>
+<h4 class="dex-col-head">AMM 型 <small>（LP がカウンターパーティ）</small></h4>
 
-<ul class="dex-list">
-<li><span class="dex-logo-frame"><img src="assets/logos/jupiter.svg" alt="Jupiter" class="deck-logo-sm" /></span><span class="dex-copy"><strong>Jupiter Perp</strong><small>JLP が流動性の受け皿</small></span></li>
-<li><span class="dex-logo-frame"><img src="assets/logos/gmx.png" alt="GMX" class="deck-logo-sm" /></span><span class="dex-copy"><strong>GMX</strong><small>GM / GLP などのプール</small></span></li>
-<li><span class="dex-logo-frame"><img src="assets/logos/gains-network.png" alt="Gains Network" class="deck-logo-sm" /></span><span class="dex-copy"><strong>Gains Network</strong><small>gTrade / 金庫型の設計</small></span></li>
+<ul class="dex-flat-list">
+<li><img src="assets/logos/jupiter.svg" alt="Jupiter" /><div><strong>Jupiter Perp</strong><small>JLP が流動性の受け皿</small></div></li>
+<li><img src="assets/logos/gmx.png" alt="GMX" /><div><strong>GMX</strong><small>GM / GLP などのプール</small></div></li>
+<li><img src="assets/logos/gains-network.png" alt="Gains Network" /><div><strong>Gains Network</strong><small>gTrade / 金庫型の設計</small></div></li>
 </ul>
 
-</div>
+</section>
 
 </div>
 
@@ -563,14 +501,10 @@ Perp DEX は Oracle を通して現物価格を知り、それに応じて FR
 
 ## TradFi と DeFi の大きな違い
 
-<div class="glass-card">
-
-<ul>
-<li>Crypto、特に DeFi では個人を<strong>特定しづらい</strong></li>
-<li><strong>取引所や broker が損失を被ったときに、個人に対して請求できない</strong>前提が強い</li>
+<ul class="bullet-clean">
+<li>Crypto、特に DeFi では個人を <strong>特定しづらい</strong></li>
+<li>取引所や broker が損失を被ったときに、<strong>個人に対して請求できない</strong> 前提が強い</li>
 </ul>
-
-</div>
 
 ---
 
@@ -578,13 +512,9 @@ Perp DEX は Oracle を通して現物価格を知り、それに応じて FR
 
 ## じゃあどうしているか？
 
-基本的に **Protocol 内で** これらの risk を精算しきれるように設計している。
+<p class="lede-line">基本的に <strong>Protocol 内で</strong> 損益が完結するように設計する。</p>
 
-<div class="note-banner">
-
-「誰が最終的に損を抱えるか」をコードと経済設計で決めている、という見方になる。
-
-</div>
+<p class="sub-text">「<strong>誰が最終的に損を抱えるか</strong>」を、コードと経済設計で決めている、という見方になる。</p>
 
 ---
 
@@ -592,41 +522,35 @@ Perp DEX は Oracle を通して現物価格を知り、それに応じて FR
 
 ## Risk の転嫁先
 
-<div class="grid grid-cols-2 gap-6 mt-6">
+<div class="compare-rail">
 
-<div class="glass-card">
+<div class="rail rail-l">
 
 <h4>CLOB 型</h4>
 
 <ul>
 <li>ADL（auto de-leveraging）</li>
 <li>Insurance Fund</li>
-<li>socialized loss</li>
-<li>運営 vault（例: HLP と JELLY事件）</li>
+<li>Socialized loss</li>
+<li>運営 vault（例: HLP と JELLY 事件）</li>
 </ul>
-
-<p class="muted-foot">ここは CLOB 型 Perp DEX の面白いところなので、次から 1 つずつ見る。</p>
 
 </div>
 
-<div class="glass-card">
+<div class="rail rail-r">
 
 <h4>AMM 型（LP がカウンターパーティ）</h4>
 
 <ul>
 <li>LP</li>
-<li>Trader
-<ul>
-<li>Open Fee</li>
-<li>Price Impact Fee</li>
-<li>Borrow Fee Due</li>
-</ul>
-</li>
+<li>Trader<br /><small>Open Fee / Price Impact Fee / Borrow Fee Due</small></li>
 </ul>
 
 </div>
 
 </div>
+
+<p class="sub-text">この後、CLOB 型の 4 つのメカニズムを <strong>1 つずつ</strong> 見ていく。</p>
 
 ---
 
@@ -806,29 +730,29 @@ Perp DEX は Oracle を通して現物価格を知り、それに応じて FR
 
 ## 今日のまとめ
 
-<div class="grid-summary">
+<div class="col-three">
 
-<div class="glass-card">
-
-<h4>Perps</h4>
-
-<p>先物の発想、Funding、清算、Oracle。DEX 型ごとに設計が違う。</p>
-
-</div>
-
-<div class="glass-card">
-
-<h4>リスク</h4>
-
-<p>DeFi では個人追徴が弱い前提で、ADL・保険基金・LP・手数料などへ精算される。</p>
-
-</div>
-
-<div class="glass-card">
+<div>
 
 <h4>Aggregator</h4>
 
-<p>SOR に近い。Direct / Multi-hop / Split で「最適」が変わる。</p>
+<p>SOR に近い発想で、複数 DEX を一つの I/F で束ねる。<strong>Direct / Multi-hop / Split</strong> で「最適」が変わる。</p>
+
+</div>
+
+<div>
+
+<h4>Perps</h4>
+
+<p>先物の発想 ＋ <strong>Funding・清算・Oracle</strong>。DEX 型（CLOB / AMM）ごとに設計が違う。</p>
+
+</div>
+
+<div>
+
+<h4>リスク</h4>
+
+<p>DeFi は個人追徴が弱い前提。損失は <strong>ADL・保険基金・LP・手数料</strong> など Protocol 内で精算される。</p>
 
 </div>
 

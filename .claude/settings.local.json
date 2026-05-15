@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(defuddle parse *)",
+      "WebFetch(domain:note.com)",
+      "Bash(bunx @marp-team/marp-cli@latest --config .marprc-ci.yml)",
+      "Bash(bunx @marp-team/marp-cli@latest SLIDE.md --pdf --theme-set theme --allow-local-files -o output/SLIDE.pdf)"
+    ]
+  }
+}
