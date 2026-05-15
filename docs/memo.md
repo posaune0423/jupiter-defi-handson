@@ -1,3 +1,63 @@
+
+ちょっとおさらい
+
+- AMM
+- 既存金融とDefiの違い
+
+
+
+---
+
+## Aggregator
+
+---
+
+既存金融でいう**SOR(Smart Order Router)**
+
+Blockchain上にはDEXと呼ばれる取引所が沢山存在している。
+
+それらを1つのInterfaceで呼べるようにしたもので、さらに最適な交換レートのrouteを探索してくれる
+
+
+- Jupiter
+- 1inch
+
+---
+
+一般のAMMだけじゃなくprop AMMやRFQ等のmarket makerからのquoteも受け付けてbest rateをuserに提示る
+
+既存金融とかだと [[立会外取引]]みたいなもの
+
+---
+
+A. Direct Route
+```
+SOL -> USDC
+```
+
+
+B. Multi-hop Route
+```
+SOL -> USDT -> USDC
+SOL -> mSOL -> USDC
+SOL -> JupSOL -> USDC
+```
+
+
+C. Split Route
+```
+SOL -> USDC  40% via Jupiter
+SOL -> USDC  35% via Raydium
+SOL -> USDT -> USDC 25% via Meteora + Orca
+```
+
+
+---
+
+Jupiter Swapとかを見てみる
+
+---
+
 ## Perpetual
 
 まずそもそもperpとは？ =>「永久先物」
@@ -112,56 +172,6 @@ JELLY事件 小話
 ---
 
 bulk trade, Jupiter Perpでデモ
-
----
-
-## Aggregator
-
----
-
-既存金融でいう**SOR(Smart Order Router)**
-
-Blockchain上にはDEXと呼ばれる取引所が沢山存在している。
-
-それらを1つのInterfaceで呼べるようにしたもので、さらに最適な交換レートのrouteを探索してくれる
-
-
-- Jupiter
-- 1inch
-
----
-
-一般のAMMだけじゃなくprop AMMやRFQ等のmarket makerからのquoteも受け付けてbest rateをuserに提示る
-
-既存金融とかだと [[立会外取引]]みたいなもの
-
----
-
-A. Direct Route
-```
-SOL -> USDC
-```
-
-
-B. Multi-hop Route
-```
-SOL -> USDT -> USDC
-SOL -> mSOL -> USDC
-SOL -> JupSOL -> USDC
-```
-
-
-C. Split Route
-```
-SOL -> USDC  40% via Jupiter
-SOL -> USDC  35% via Raydium
-SOL -> USDT -> USDC 25% via Meteora + Orca
-```
-
-
----
-
-Jupiter Swapとかを見てみる
 
 ---
 

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="title desc">
+  <title id="title">Candlestick chart illustration</title>
+  <desc id="desc">Stylized candlestick chart with rising and falling candles.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101820"/>
+      <stop offset="1" stop-color="#081014"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="900" height="560" rx="36" fill="url(#panel)"/>
+  <g opacity="0.18" stroke="#ffffff" stroke-width="1">
+    <path d="M86 96h742M86 176h742M86 256h742M86 336h742M86 416h742"/>
+    <path d="M132 70v390M232 70v390M332 70v390M432 70v390M532 70v390M632 70v390M732 70v390"/>
+  </g>
+  <path d="M86 460h742" stroke="#ffffff" stroke-width="3" opacity="0.34"/>
+  <path d="M86 80v380" stroke="#ffffff" stroke-width="3" opacity="0.34"/>
+  <g filter="url(#shadow)" stroke-linecap="round">
+    <g stroke="#5ee9b5" fill="#5ee9b5">
+      <line x1="138" y1="314" x2="138" y2="208" stroke-width="8"/>
+      <rect x="116" y="248" width="44" height="62" rx="7"/>
+      <line x1="238" y1="294" x2="238" y2="168" stroke-width="8"/>
+      <rect x="216" y="198" width="44" height="78" rx="7"/>
+      <line x1="338" y1="276" x2="338" y2="128" stroke-width="8"/>
+      <rect x="316" y="166" width="44" height="92" rx="7"/>
+      <line x1="638" y1="334" x2="638" y2="184" stroke-width="8"/>
+      <rect x="616" y="226" width="44" height="82" rx="7"/>
+      <line x1="738" y1="292" x2="738" y2="134" stroke-width="8"/>
+      <rect x="716" y="176" width="44" height="86" rx="7"/>
+    </g>
+    <g stroke="#ff5f5f" fill="#ff5f5f">
+      <line x1="438" y1="150" x2="438" y2="310" stroke-width="8"/>
+      <rect x="416" y="176" width="44" height="86" rx="7"/>
+      <line x1="538" y1="206" x2="538" y2="366" stroke-width="8"/>
+      <rect x="516" y="246" width="44" height="88" rx="7"/>
+    </g>
+  </g>
+  <path d="M120 328C228 236 298 218 382 156c76 118 148 160 214 128 60-30 96-82 184-112" fill="none" stroke="#c7f284" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+</svg>
