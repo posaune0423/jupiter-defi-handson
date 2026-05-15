@@ -532,8 +532,8 @@ Funding
 <h4>CLOB 型</h4>
 
 <ul>
-<li>ADL（auto de-leveraging）</li>
 <li>Insurance Fund</li>
+<li>ADL(auto de-leveraging)</li>
 <li>Socialized loss</li>
 <li>運営 vault（例: HLP と JELLY 事件）</li>
 </ul>
@@ -554,42 +554,6 @@ Funding
 </div>
 
 <p class="sub-text">この後、CLOB 型の 4 つのメカニズムを <strong>1 つずつ</strong> 見ていく。</p>
-
----
-
-<!-- header: Perpetual -->
-
-## CLOB: ADL
-
-<div class="risk-detail">
-
-<div class="risk-big">
-
-<span>勝っている側のポジションを、強制的に縮小する</span>
-
-</div>
-
-<div class="risk-grid">
-
-<div>
-
-<h4>いつ起きる？</h4>
-
-<p>清算・保険基金・バックストップだけでは、破産ポジションの損失を吸収しきれないとき。</p>
-
-</div>
-
-<div>
-
-<h4>誰が影響を受ける？</h4>
-
-<p>反対側にいて、未実現利益やレバレッジが大きい trader から優先的に選ばれやすい。</p>
-
-</div>
-
-</div>
-
-</div>
 
 ---
 
@@ -620,6 +584,41 @@ Funding
 <h4>減るとき</h4>
 
 <p>価格が飛んで、清算後の残高だけでは損失を埋められないときに差額を吸収する。</p>
+
+</div>
+
+</div>
+
+</div>
+
+---
+<!-- header: Perpetual -->
+
+## ADL (auto de-leveraging)
+
+<div class="risk-detail">
+
+<div class="risk-big">
+
+<span>勝っている側のポジションを、強制的に縮小する</span>
+
+</div>
+
+<div class="risk-grid">
+
+<div>
+
+<h4>いつ起きる？</h4>
+
+<p>清算・保険基金・バックストップだけでは、破産ポジションの損失を吸収しきれないとき。</p>
+
+</div>
+
+<div>
+
+<h4>誰が影響を受ける？</h4>
+
+<p>反対側にいて、未実現利益やレバレッジが大きい trader から優先的に選ばれやすい。</p>
 
 </div>
 
